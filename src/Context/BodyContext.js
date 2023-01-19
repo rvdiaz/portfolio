@@ -6,17 +6,19 @@ export const BodyContext=createContext();
 export const BodyContextProvider=(props)=>{
     const [bodyContent, setbodyContent] = useState({
         headerSection:{},
-        socialNetworks:[]
+        socialNetworks:[],
+        serviceSection:{}
     });
 
     useEffect(() => {
         const fetchData=async()=>{
             const headerSection = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate]populate=*');
-            const socialNetworks = await axios(process.env.REACT_APP_API+'/api/homepage?populate[social_networks][populate]populate=*');
-
+            const socialNetworks = await axios(process.env.REACT_APP_API+'/api/homepage?populate[social_networks][populate][link][populate]populate=*');
+            const serviceSection= await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][service][populate]populate=*');
             setbodyContent({
                 headerSection:headerSection.data.data.attributes.body[0],
-                socialNetworks:socialNetworks.data.data.attributes.social_networks.link
+                serviceSection:serviceSection.data.data.attributes.body[1],
+                socialNetworks:socialNetworks.data.data.attributes.social_networks.link                
             })
         }
 

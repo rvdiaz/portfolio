@@ -7,9 +7,7 @@ export const Image = (props) => {
     <Box
         component="img"
         alt={props.alt}
-        sx={
-            props.styles
-        }
+        {...props}
         src={props.src}
     />
   )

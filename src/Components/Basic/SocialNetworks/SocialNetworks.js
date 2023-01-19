@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material'
+import { autocompleteClasses, Box, Button, Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import { BodyContext } from '../../../Context/BodyContext'
 
@@ -7,46 +7,39 @@ import Icon from '@mui/material/Icon';
 
 import { ThemeContext } from '../../../Context/ThemeContext';
 import { MDBIcon } from 'mdb-react-ui-kit';
+import { Image } from '../Image/Image';
 
-export const SocialNetworks = () => {
+export const SocialNetworks = (props) => {
     const {socialNetworks}=useContext(BodyContext);
     const {primaryColor}=useContext(ThemeContext);
   return (
-    <Grid
-        container
-        spacing={2}
-        sx={{
-            marginTop:'15px'
-        }}
+    <Box
+        {...props}
     >
         {
             socialNetworks.map((social,index)=>(
-                <Grid 
-                    item
+                <Button 
+                    key={index}
+                    disableRipple  
+                    href={social.href}
+                    sx={{
+                        padding:'5px',
+                        minWidth:'auto',
+                        '&:hover':{
+                            backgroundColor: 'transparent'
+                        }
+                    }}
                 >
-                    <Button 
-                        disableRipple
-                        key={index} 
-                        href={social.href}
+                    <Image
+                        src={process.env.REACT_APP_API + social.image.data?.attributes.url}
                         sx={{
-                            padding:'10px',
-                            backgroundColor: primaryColor,
-                            color:"white",
-                            fontSize:'25px',
-                            width:'50px',
-                            height:'50px',
-                            '&:hover':{
-                                backgroundColor: primaryColor,
-                                color: 'white'
-                            }
+                            width:'30px'
                         }}
-                    >
-                        <MDBIcon fab icon={social.label} />
-                    </Button>
-                </Grid>
+                    />
+                </Button>
             ))
         }
-    </Grid>
+    </Box>
   )
 }
 

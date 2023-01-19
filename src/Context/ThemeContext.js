@@ -6,18 +6,23 @@ export const ThemeContext=createContext();
 
 export const ThemeContextProvider=(props)=>{
     const [theme, setTheme] = useState({
-        primaryColor:''
+        primaryColor:'',
+        perfilPicture:'',
+        backgroundPage:''
     });
 
     useEffect(() => {
-        axios.get(baseUrl+'/api/homepage?populate[theme]populate=*')
-        .then(({data})=>{
-            setTheme({
-                ...theme,
-                primaryColor:data.data.attributes.theme.PrimaryColor
-            }
-            )
+        const fetchData=async ()=>{
+        const themeContext=await axios(process.env.REACT_APP_API+'/api/homepage?populate[theme][populate]populate=*');
+
+        setTheme({
+            primaryColor: themeContext.data.data.attributes.theme.PrimaryColor,
+            perfilPicture:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.avatar.data.attributes.url,
+            backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url
         })
+       }
+
+       fetchData();
     }, [])
     
     return(

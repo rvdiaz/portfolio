@@ -18,12 +18,10 @@ export const MenuContextProvider=(props)=>{
 
     useEffect(() => {
         const fetchData=async()=>{
-            const logo=await axios(baseUrl+'/api/homepage?populate[logo][populate]populate=*');
-            const pages=await axios(baseUrl+'/api/homepage?populate[main_menu][populate]=*');
+            const pages=await axios(baseUrl+'/api/homepage?populate[main_menu][populate][Buttons][populate]populate=*');
             setpages(
                 {
-                pages:pages.data.data.attributes.main_menu.Buttons,
-                logo:baseUrl+logo.data.data.attributes.logo.logo.data.attributes.url
+                pages:pages.data.data.attributes.main_menu.Buttons
             });
         }
         fetchData();
