@@ -1,12 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MenuContext } from '../../../Context/MenuContext';
 import { Box, Button, Menu, MenuItem, useMediaQuery, useTheme } from '@mui/material';
 import { MenuMobile } from '../MenuMobile/MenuMobile';
 import { Image } from '../../Basic/Image/Image';
+import { Link, useLocation } from 'react-router-dom';
 
 export const MainMenu = () => {
   const {pages} =useContext(MenuContext);
 
+  const {pathname}=useLocation();
+  
+  const [active, setactive] = useState(pathname);
+
+  useEffect(() => {
+    setactive(pathname);
+  }, [pathname])
+  
   const theme = useTheme();
   const isMobile=useMediaQuery(theme.breakpoints.down('md'));
 
@@ -21,12 +30,18 @@ export const MainMenu = () => {
         >
           {pages.map((page,index)=>{
               const icon=page.icon?.data;
+              const href=`/${page.label.toLowerCase()}`;
+  
               return (
                 <Button 
-                   key={index}
-                  disableRipple    
+                  tabIndex={index}
+                  disableRipple
+                  component={Link}
+                  to={href}
+                  key={index}
                   sx={{
-                    color: 'black',
+                    color:(active === href)?'black':'#a09999',
+                    fontSize:'18px',
                     backgroundColor:'transparent',
                     textTransform:'capitalize',
                     fontSize:'18px',
@@ -36,11 +51,10 @@ export const MainMenu = () => {
                     justifyContent:'start',
                     borderRadius:'0',
                     marginTop:'10px',
-                    color:'#8e8888',
                     '&:hover':{
                       backgroundColor:'transparent',
                       color:'black'
-                    },
+                    }
                   }}
                   >
                   {icon&& 
@@ -51,7 +65,7 @@ export const MainMenu = () => {
                   }}
                   src={process.env.REACT_APP_API+ icon.attributes.url}/>
                   }
-                  {page.label}
+                    {page.label}                  
                 </Button>
               )
             })}

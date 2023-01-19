@@ -1,12 +1,30 @@
 import { Box } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { MenuContext } from '../../../Context/MenuContext'
+import { BioSection } from '../../../Pages/BioSection/BioSection'
+import { BlogSection } from '../../../Pages/BlogSection/BlogSection'
+import { ContactSection } from '../../../Pages/ConctactSection/ContactSection'
 import { ServiceSection } from '../../../Pages/ServiceSection.js/ServiceSection'
+import { WorksSections } from '../../../Pages/WorksSection/WorksSections'
 
 export const RightSide = () => {
   return (
     <Box
+        sx={{
+            width:{
+                md:'800px',
+                lg:'1000px'
+            }
+        }}
     >
-        <ServiceSection/>
+        <Routes>
+            <Route path='*' element={<BioSection/>}/>
+            <Route path='/service' element={<ServiceSection/>}/>
+            <Route path='/work' element={<WorksSections/>}/>
+            <Route path='/contact' element={<ContactSection/>}/>
+            <Route path='/blog' element={<BlogSection/>}/>
+        </Routes>
     </Box>
   )
 }

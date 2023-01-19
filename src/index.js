@@ -7,7 +7,7 @@ import { MenuContextProvider } from './Context/MenuContext';
 import { ThemeContextProvider } from './Context/ThemeContext';
 import { BodyContextProvider } from './Context/BodyContext';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,9 @@ root.render(
     <ThemeContextProvider>
       <MenuContextProvider>
         <BodyContextProvider>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </BodyContextProvider>
       </MenuContextProvider>
     </ThemeContextProvider>

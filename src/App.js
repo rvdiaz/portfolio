@@ -50,7 +50,7 @@ function App() {
               height:'100%',
               overflowY:'auto',
               padding:'30px 40px',
-              width:'300px',
+              width:{md:'300px',lg:'350px'},
               borderRight:'2px solid #a77043'
             }}
             >
@@ -58,9 +58,9 @@ function App() {
           </Box>
           <Box 
             sx={{
-              width:'70%',
               height:'100%',
               overflowY:'auto',
+              overflowX:'hidden',
               padding:'30px 30px 30px 40px'
             }}
             >
