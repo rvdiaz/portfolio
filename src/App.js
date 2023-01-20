@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import { MainMenu } from './Components/Global/MainMenu/MainMenu';
-import { HeaderSection } from './Pages/BioSection/BioSection';
 import { ServiceSection } from './Pages/ServiceSection.js/ServiceSection';
 import { Box, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { BodyContext } from './Context/BodyContext';
@@ -61,8 +60,12 @@ function App() {
               height:'100%',
               overflowY:'auto',
               overflowX:'hidden',
-              padding:'30px 30px 30px 40px'
-            }}
+              padding:'30px 30px 30px 40px',
+              width:{
+                md:'800px',
+                lg:'1000px'
+            }            
+          }}
             >
             <RightSide/>
           </Box>

@@ -32,6 +32,9 @@ export const MainMenu = () => {
               const icon=page.icon?.data;
               const href=`/${page.label.toLowerCase()}`;
   
+
+              const color=(active === href)?'black':'#a09999';
+              const borderBottom=(active === href)?'2px solid #a77043':'2px solid #a770439E';
               return (
                 <Button 
                   tabIndex={index}
@@ -40,27 +43,27 @@ export const MainMenu = () => {
                   to={href}
                   key={index}
                   sx={{
-                    color:(active === href)?'black':'#a09999',
-                    fontSize:'18px',
+                    color:{color},
                     backgroundColor:'transparent',
                     textTransform:'capitalize',
-                    fontSize:'18px',
+                    fontSize:'16px',
                     fontWeight:'600',
                     width:'100%',
-                    borderBottom:'2px solid #a77043',
+                    borderBottom:{borderBottom},
                     justifyContent:'start',
                     borderRadius:'0',
                     marginTop:'10px',
                     '&:hover':{
                       backgroundColor:'transparent',
-                      color:'black'
+                      color:'black',
+                      borderBottom:'2px solid #a77043'
                     }
                   }}
                   >
                   {icon&& 
                   <Image 
                   sx={{
-                    width:'35px',
+                    width:'25px',
                     marginRight:'10px'
                   }}
                   src={process.env.REACT_APP_API+ icon.attributes.url}/>

@@ -11,12 +11,6 @@ import { WorksSections } from '../../../Pages/WorksSection/WorksSections'
 export const RightSide = () => {
   return (
     <Box
-        sx={{
-            width:{
-                md:'800px',
-                lg:'1000px'
-            }
-        }}
     >
         <Routes>
             <Route path='*' element={<BioSection/>}/>
