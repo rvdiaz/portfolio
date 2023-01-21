@@ -12,24 +12,6 @@ export const BioSection = () => {
     console.log(content);
     const theme=useTheme();
     const isMobile=useMediaQuery(theme.breakpoints.down('md'));
-
-    const steps = [
-        {
-          year:'2015',
-          label: 'Select campaign settings',
-          description: "For each ad campaign that you create, you can control how much you re willing to spend on clicks and conversions, which networks and geographical locations you want your ads to show on, and more",
-        },
-        {
-          year:'2016',
-          label: 'Create an ad group',
-          description: "An ad group contains one or more ads which target a shared set of keywords.",
-        },
-        {
-          year:'2017',
-          label: 'Create an ad',
-          description: "Try out different ad text to see what brings in the most customers, and learn how to enhance your ads using features like ad extensions. If you run into any problems with your ads, find out how to tell if they're running and how to resolve approval issues.",
-        },
-      ];
       
         return (
           <Box>   

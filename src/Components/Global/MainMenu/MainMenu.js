@@ -32,7 +32,6 @@ export const MainMenu = () => {
               const icon=page.icon?.data;
               const href=`/${page.label.toLowerCase()}`;
   
-
               const color=(active === href)?'black':'#a09999';
               const borderBottom=(active === href)?'2px solid #a77043':'2px solid #a770439E';
               return (

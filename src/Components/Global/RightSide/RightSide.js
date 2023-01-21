@@ -5,6 +5,7 @@ import { MenuContext } from '../../../Context/MenuContext'
 import { BioSection } from '../../../Pages/BioSection/BioSection'
 import { BlogSection } from '../../../Pages/BlogSection/BlogSection'
 import { ContactSection } from '../../../Pages/ConctactSection/ContactSection'
+import { HomeSection } from '../../../Pages/HomeSection/HomeSection'
 import { ServiceSection } from '../../../Pages/ServiceSection.js/ServiceSection'
 import { WorksSections } from '../../../Pages/WorksSection/WorksSections'
 
@@ -13,7 +14,8 @@ export const RightSide = () => {
     <Box
     >
         <Routes>
-            <Route path='*' element={<BioSection/>}/>
+            <Route path='*' element={<HomeSection/>}/>
+            <Route path='/biography' element={<BioSection/>}/>
             <Route path='/service' element={<ServiceSection/>}/>
             <Route path='/work' element={<WorksSections/>}/>
             <Route path='/contact' element={<ContactSection/>}/>
