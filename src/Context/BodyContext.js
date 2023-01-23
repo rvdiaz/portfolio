@@ -6,22 +6,36 @@ export const BodyContext=createContext();
 export const BodyContextProvider=(props)=>{
     const [bodyContent, setbodyContent] = useState({
         socialNetworks:[],
-        serviceSection:{},
+        homeSection:{
+            image:{},
+            personal:{}
+        },
         bioSection:{},
+        serviceSection:{}, 
         workSection:{}
     });
 
     useEffect(() => {
         const fetchData=async()=>{
+
             const socialNetworks = await axios(process.env.REACT_APP_API+'/api/homepage?populate[social_networks][populate][link][populate]populate=*');
-            const serviceSection= await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][service][populate]populate=*');
+
+            const homeSectionPersonal = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][personal][populate]populate=*');
+            const homeSectionImage = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate]populate=*');
+
             const bioSection = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][content][populate]populate=*');
+            const serviceSection= await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][service][populate]populate=*');
             const workSection=await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][websites][populate]populate=*');
+
             setbodyContent({
                 socialNetworks:socialNetworks.data.data.attributes.social_networks.link,
-                serviceSection:serviceSection.data.data.attributes.body[0],
+                homeSection:{
+                    image:homeSectionImage.data.data.attributes.body[0],
+                    personal:homeSectionPersonal.data.data.attributes.body[0],
+                },
                 bioSection:bioSection.data.data.attributes.body[1],
-                workSection: workSection.data.data.attributes.body[2]                
+                serviceSection:serviceSection.data.data.attributes.body[2],
+                workSection: workSection.data.data.attributes.body[3]                
             })
         }
 

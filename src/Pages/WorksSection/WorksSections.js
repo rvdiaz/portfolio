@@ -6,7 +6,7 @@ export const WorksSections = () => {
     const {workSection}=useContext(BodyContext);
     const {label,title}=workSection;
     const websites=workSection.websites ? workSection.websites : [];
-
+   
   return (
     <Box>
         <Typography
@@ -67,6 +67,7 @@ export const WorksSections = () => {
         >
             {websites.map((website,index)=>(   
                 <Grid
+                    key={index}
                     item
                     md={5}
                 >
@@ -78,10 +79,10 @@ export const WorksSections = () => {
                             textAlign:'center',
                             border:'1px solid #a770439E',
                             '&:hover':{
-                                border:'1px solid #a77043'
+                                boxShadow:'0 0 5px 0 #a77043',
                             }
                         }}
-                    > <Link 
+                    ><Link 
                             sx={{
                                 textDecoration:'none'
                             }}
