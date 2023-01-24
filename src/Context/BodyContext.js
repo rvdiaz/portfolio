@@ -12,7 +12,8 @@ export const BodyContextProvider=(props)=>{
         },
         bioSection:{},
         serviceSection:{}, 
-        workSection:{}
+        workSection:{},
+        contactSection:{}
     });
 
     useEffect(() => {
@@ -26,6 +27,7 @@ export const BodyContextProvider=(props)=>{
             const bioSection = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][content][populate]populate=*');
             const serviceSection= await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][service][populate]populate=*');
             const workSection=await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate][websites][populate]populate=*');
+            const contactSection = await axios(process.env.REACT_APP_API+'/api/homepage?populate[body][populate]populate=*');
 
             setbodyContent({
                 socialNetworks:socialNetworks.data.data.attributes.social_networks.link,
@@ -35,7 +37,8 @@ export const BodyContextProvider=(props)=>{
                 },
                 bioSection:bioSection.data.data.attributes.body[1],
                 serviceSection:serviceSection.data.data.attributes.body[2],
-                workSection: workSection.data.data.attributes.body[3]                
+                workSection: workSection.data.data.attributes.body[3],
+                contactSection: contactSection.data.data.attributes.body[4],                
             })
         }
 
