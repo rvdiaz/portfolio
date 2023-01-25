@@ -18,7 +18,7 @@ export const MenuContextProvider=(props)=>{
 
     useEffect(() => {
         const fetchData=async()=>{
-            const pages=await axios(baseUrl+'/api/homepage?populate[main_menu][populate][Buttons][populate]populate=*');
+            const pages=await axios(baseUrl+'/api/theme?populate[main_menu][populate][Buttons][populate]populate=*');
             setpages(
                 {
                 pages:pages.data.data.attributes.main_menu.Buttons

@@ -2,14 +2,14 @@ import { Box, Typography } from '@mui/material';
 import React, { useContext } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
-import { BodyContext } from '../../Context/BodyContext'
+import { HomeContext } from '../../Context/PagesContext/HomeContext'
 
 export const HomeSection = () => {
-    const {homeSection}= useContext(BodyContext);
-    const {title,label,description,image}= homeSection.image; 
-    const personal= homeSection.personal.personal ? homeSection.personal.personal : []; 
-
-    console.log(personal);
+   const {homeContent} = useContext(HomeContext);
+   const {content,image}=homeContent;
+   const {title,label,description}=content;
+   const personal= content.personal ? content.personal : [];
+    
   return (
     <Box
         sx={{
@@ -27,7 +27,7 @@ export const HomeSection = () => {
                 sx={{
                     width:'90%'
                 }} 
-                src={process.env.REACT_APP_API + image?.data.attributes.url}
+                src={process.env.REACT_APP_API + image.data?.attributes.url}
                 />
         </Box>
         <Box 
@@ -60,7 +60,7 @@ export const HomeSection = () => {
                         fontSize:'20px'
                     }}
                 >
-                    {label}
+                    {title}
                 </Typography>
                 <Box
                 sx={{
@@ -78,11 +78,11 @@ export const HomeSection = () => {
                     textTransform:'uppercase',
                     fontWeight:'600',
                     textAlign:'start',
-                    fontSize:'35px',
+                    fontSize:'33px',
                     marginTop:'1vh'
                 }}
             >
-                {title}
+                {label}
             </Typography>
             <Box
                 sx={{
@@ -112,17 +112,18 @@ export const HomeSection = () => {
                             sx={{
                                 marginLeft:'15px',
                                 fontSize:'18px',
-                                fontWeight:'600'
+                                fontWeight:'600',
+                                textTransform:'capitalize'
                             }}
                         >
-                            {info.title}:
+                            {info.title}
                         </Typography>
                         <Typography
                             sx={{
                                 marginLeft:'auto'
                             }}
                         >
-                            {info.value}
+                           {info.value}
                         </Typography>
                     </Box>
                    ))

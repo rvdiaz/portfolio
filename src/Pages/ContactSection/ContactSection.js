@@ -1,12 +1,12 @@
 import { Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { useState } from 'react';
-import { BodyContext } from '../../Context/BodyContext'
+import { ContactContext } from '../../Context/PagesContext/ContactContext';
 
 export const ContactSection = () => {
-  const {contactSection}= useContext(BodyContext);
-  const {title,label,submit}=contactSection;
-  const form = contactSection.form ? contactSection.form : [];
+  const {contactContent}= useContext(ContactContext);
+  const {title,label,submit}=contactContent;
+  const form = contactContent.form ? contactContent.form : [];
 
   const [inputForm, setinputForm] = useState({
     name:'',

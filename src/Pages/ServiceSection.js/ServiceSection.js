@@ -1,19 +1,20 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import { MDBIcon } from 'mdb-react-ui-kit';
 
 import React, { useContext } from 'react'
 import { Image } from '../../Components/Basic/Image/Image';
-import { BodyContext } from '../../Context/BodyContext'
+import { ServiceContext } from '../../Context/PagesContext/ServiceContext';
 
 export const ServiceSection = () => {
-    const {serviceSection}=useContext(BodyContext);
-    const {label,title}=serviceSection;
-    const services=serviceSection?.service ? serviceSection?.service : [];
+    const {serviceContent}=useContext(ServiceContext);
+
+    const {label,title}=serviceContent;
+    const services=serviceContent?.services ? serviceContent?.services : [];
 
   return (
    <Box
         sx={{
-            textAlign:'center'
+            textAlign:'center',
+            paddingBottom:'3vh'
         }}
     >
         <Typography

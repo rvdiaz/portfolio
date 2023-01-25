@@ -1,14 +1,18 @@
 import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
 import React, { useContext } from 'react'
-import { BodyContext } from '../../Context/BodyContext'
+import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
 
 export const WorksSections = () => {
-    const {workSection}=useContext(BodyContext);
-    const {label,title}=workSection;
-    const websites=workSection.websites ? workSection.websites : [];
+    const {portfolioContent}=useContext(PortfolioContext);
+    const {label,title}=portfolioContent;
+    const websites=portfolioContent.websites ? portfolioContent.websites : [];
    
   return (
-    <Box>
+    <Box
+        sx={{
+            paddingBottom:'3vh'
+        }}
+    >
         <Typography
             variant='h3'
             sx={{

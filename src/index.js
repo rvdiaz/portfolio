@@ -5,20 +5,35 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MenuContextProvider } from './Context/MenuContext';
 import { ThemeContextProvider } from './Context/ThemeContext';
-import { BodyContextProvider } from './Context/BodyContext';
+import { HomeContextProvider } from './Context/PagesContext/HomeContext';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { BrowserRouter } from 'react-router-dom';
+import { BiographyContentProvider } from './Context/PagesContext/BiographyContext';
+import { ServiceContextProvider } from './Context/PagesContext/ServiceContext';
+import { PortfolioContextProvider } from './Context/PagesContext/PortfolioContext';
+import { ContactContextProvider } from './Context/PagesContext/ContactContext';
+import { BlogContextProvider } from './Context/PagesContext/BlogContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeContextProvider>
       <MenuContextProvider>
-        <BodyContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </BodyContextProvider>
+        <HomeContextProvider>
+          <BiographyContentProvider>
+            <ServiceContextProvider>
+              <PortfolioContextProvider>
+                <ContactContextProvider>
+                  <BlogContextProvider>
+                    <BrowserRouter>
+                      <App />
+                    </BrowserRouter>
+                  </BlogContextProvider>
+                </ContactContextProvider>
+              </PortfolioContextProvider>
+            </ServiceContextProvider>
+          </BiographyContentProvider>
+        </HomeContextProvider>
       </MenuContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>

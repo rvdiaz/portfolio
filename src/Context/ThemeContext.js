@@ -8,17 +8,19 @@ export const ThemeContextProvider=(props)=>{
     const [theme, setTheme] = useState({
         primaryColor:'',
         perfilPicture:'',
-        backgroundPage:''
+        backgroundPage:'',
+        socialNetworks:[]
     });
 
     useEffect(() => {
         const fetchData=async ()=>{
-        const themeContext=await axios(process.env.REACT_APP_API+'/api/homepage?populate[theme][populate]populate=*');
+        const themeContext=await axios(process.env.REACT_APP_API+'/api/theme?populate[theme][populate]populate=*');
+        const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme?populate[social_networks][populate][link][populate]populate=*');
 
         setTheme({
-            primaryColor: themeContext.data.data.attributes.theme.PrimaryColor,
             perfilPicture:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.avatar.data.attributes.url,
-            backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url
+            backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
+            socialNetworks:socialNetworks.data.data.attributes.social_networks.link
         })
        }
 

@@ -1,20 +1,23 @@
 import { Box, Button, Grid, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useContext } from 'react'
 import ReactMarkdown from 'react-markdown';
-import { BodyContext } from '../../Context/BodyContext'
-import { ThemeContext } from '../../Context/ThemeContext';
+import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
 
 export const BioSection = () => {
-    const {bioSection} = useContext(BodyContext);
-    const {title,label}=bioSection;
-    const content=bioSection.content ? bioSection.content : [];
+    const {biographyContent} = useContext(BiographyContext);
+    
+    const {title,label}=biographyContent;
+    const content=biographyContent.content ? biographyContent.content : [];
 
-    console.log(content);
     const theme=useTheme();
     const isMobile=useMediaQuery(theme.breakpoints.down('md'));
       
         return (
-          <Box>   
+          <Box
+            sx={{
+                paddingBottom:'3vh'
+            }}
+          >   
             <Typography
                 variant='h3'
                 sx={{
@@ -185,7 +188,7 @@ export const BioSection = () => {
                                         marginBottom:'1vh'
                                     }}
                                 >
-                                <Typography
+                                <Box
                                     sx={{
                                         marginLeft:'20px',
                                         fontSize:'16px'
@@ -199,7 +202,7 @@ export const BioSection = () => {
                                         {step.description}
                                     </ReactMarkdown>
                                     
-                                </Typography>
+                                </Box>
                                 </Grid>
                                 <Grid
                                     item

@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { MenuContext } from '../../../Context/MenuContext'
 import { BioSection } from '../../../Pages/BioSection/BioSection'
 import { BlogSection } from '../../../Pages/BlogSection/BlogSection'
+import { BlogSingle } from '../../../Pages/BlogSingle/BlogSingle'
 import { ContactSection } from '../../../Pages/ContactSection/ContactSection'
 import { HomeSection } from '../../../Pages/HomeSection/HomeSection'
 import { ServiceSection } from '../../../Pages/ServiceSection.js/ServiceSection'
@@ -12,6 +13,9 @@ import { WorksSections } from '../../../Pages/WorksSection/WorksSections'
 export const RightSide = () => {
   return (
     <Box
+      sx={{
+        height:'100%'
+      }}
     >
         <Routes>
             <Route path='*' element={<HomeSection/>}/>
@@ -20,6 +24,7 @@ export const RightSide = () => {
             <Route path='/work' element={<WorksSections/>}/>
             <Route path='/contact' element={<ContactSection/>}/>
             <Route path='/blog' element={<BlogSection/>}/>
+            <Route path='/blog/:id' element={<BlogSingle/>}/>
         </Routes>
     </Box>
   )

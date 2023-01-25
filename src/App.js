@@ -3,7 +3,6 @@ import './App.css';
 import { MainMenu } from './Components/Global/MainMenu/MainMenu';
 import { ServiceSection } from './Pages/ServiceSection.js/ServiceSection';
 import { Box, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
-import { BodyContext } from './Context/BodyContext';
 import { ThemeContext } from './Context/ThemeContext';
 import { useContext } from 'react';
 import { Perfil } from './Components/Basic/Perfil/Perfil';
@@ -60,7 +59,7 @@ function App() {
               height:'100%',
               overflowY:'auto',
               overflowX:'hidden',
-              padding:'30px 30px 30px 40px',
+              padding:'4vh 40px 4vh 40px',
               width:{
                 md:'800px',
                 lg:'1000px'
