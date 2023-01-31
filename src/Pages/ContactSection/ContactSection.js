@@ -1,12 +1,18 @@
 import { Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { useState } from 'react';
+import { Queries } from '../../config/Queries';
 import { ContactContext } from '../../Context/PagesContext/ContactContext';
 
 export const ContactSection = () => {
   const {contactContent}= useContext(ContactContext);
   const {title,label,submit}=contactContent;
   const form = contactContent.form ? contactContent.form : [];
+
+  
+  const {theme,mediaQueries}=Queries();
+  const {isTablet,isDesktop,isMobile} = mediaQueries;
+
 
   const [inputForm, setinputForm] = useState({
     name:'',
@@ -15,14 +21,6 @@ export const ContactSection = () => {
     website:'',
     message:''
 })
-
-  const theme = createTheme({
-    palette: {
-      themeColor: {
-        main: '#a77043',
-      }
-    },
-  });
 
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -35,7 +33,10 @@ export const ContactSection = () => {
     })
     
   }
-  
+  const handleInvalid=(e)=>{
+    e.preventDefault();
+    console.log(e.validationMessage);
+  }
   return (
     <ThemeProvider theme={theme}>
       <Typography
@@ -104,6 +105,7 @@ export const ContactSection = () => {
           input.type != 'textarea'
           ?
           <TextField
+            onInvalid={handleInvalid}
             color='themeColor'
             key={index}
             name={input.label}
@@ -122,6 +124,9 @@ export const ContactSection = () => {
               },
               '& .Mui-focused fieldset':{
                 borderColor:'#a770439E !important'
+              },
+              "& input:-webkit-autofill": {
+                WebkitBoxShadow: "0 0 0 1000px #fff9f0 inset"
               }
             }}
           />
@@ -160,7 +165,7 @@ export const ContactSection = () => {
           sx={{
             color:'#a770439E',
             border:'1px solid #a770439E',
-            width:'50%',
+            width:isDesktop ? '50%' : '100%',
             textAlign:'end',
             fontWeight:'600',
             '&:hover':{

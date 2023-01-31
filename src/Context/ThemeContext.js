@@ -6,7 +6,7 @@ export const ThemeContext=createContext();
 
 export const ThemeContextProvider=(props)=>{
     const [theme, setTheme] = useState({
-        primaryColor:'',
+        primaryColor:'red',
         perfilPicture:'',
         backgroundPage:'',
         socialNetworks:[]
@@ -18,6 +18,7 @@ export const ThemeContextProvider=(props)=>{
         const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme?populate[social_networks][populate][link][populate]populate=*');
 
         setTheme({
+            ...theme,
             perfilPicture:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.avatar.data.attributes.url,
             backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
             socialNetworks:socialNetworks.data.data.attributes.social_networks.link

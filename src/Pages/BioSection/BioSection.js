@@ -1,7 +1,10 @@
 import { Box, Button, Grid, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useContext } from 'react'
-import ReactMarkdown from 'react-markdown';
+
+import { Queries } from '../../config/Queries';
 import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
+import { BioDesktopContent } from './BioDesktopContent';
+import { BioMobileContent } from './BioMobileContent';
 
 export const BioSection = () => {
     const {biographyContent} = useContext(BiographyContext);
@@ -9,8 +12,8 @@ export const BioSection = () => {
     const {title,label}=biographyContent;
     const content=biographyContent.content ? biographyContent.content : [];
 
-    const theme=useTheme();
-    const isMobile=useMediaQuery(theme.breakpoints.down('md'));
+    const {mediaQueries}=Queries();
+    const {isDesktop,isMobile,isTablet}= mediaQueries;
       
         return (
           <Box
@@ -18,13 +21,14 @@ export const BioSection = () => {
                 paddingBottom:'3vh'
             }}
           >   
-            <Typography
+           <Typography
                 variant='h3'
                 sx={{
                     textTransform:'uppercase',
                     fontWeight:'600',
                     textAlign:'center',
-                    fontSize:'35px'
+                    fontSize:isDesktop ? '33px' : '24px',
+                    marginBottom:'1vh'
                 }}
             >
                 {title}
@@ -51,7 +55,7 @@ export const BioSection = () => {
                         textTransform:'uppercase',
                         color:'#a77043',
                         fontWeight:'600',
-                        fontSize:'20px'
+                        fontSize:isDesktop ? '20px' : '16px',
                     }}
                 >
                     {label}
@@ -97,119 +101,7 @@ export const BioSection = () => {
                                 </Typography>
                             </Box>
                             {category.categorycontent.map((step,index)=>(
-                            <Grid
-                                key={index}
-                                container
-                                sx={{
-                                    margin:'15px 0 0 0'
-                                }}
-                            >
-                                <Grid
-                                    item
-                                    md={1}
-                                >
-                                </Grid>
-                                <Grid
-                                    className='year'
-                                    item
-                                    md={1}
-                                    sx={{
-                                        display:'flex',
-                                        justifyContent:'center'
-                                    }}
-                                >
-                                    <Typography
-                                        sx={{
-                                            textAlign:'center',
-                                            color:'white',
-                                            borderRadius:'50%',
-                                            padding:'5px',
-                                            fontSize:'14px',
-                                            fontWeight:'600',
-                                            backgroundColor:'#a77043'
-                                        }}
-                                    >
-                                        {step.year}
-                                    </Typography>   
-                                </Grid>
-                                <Grid
-                                    className='label'
-                                    item
-                                    md={9}
-                                    sx={{
-                                        display:'flex',
-                                        alignItems:'center'
-                                    }}
-                                >
-                                    <Typography
-                                    sx={{
-                                        marginLeft:'20px',
-                                        fontSize:'18px',
-                                        fontWeight:'600',
-                                    }}
-                                    >
-                                        {step.title}
-                                    </Typography>   
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={1}
-                                >
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={1}
-                                >
-                                </Grid>
-                                <Grid
-                                    className='separator'
-                                    item
-                                    md={1}
-                                    sx={{
-                                        display:'flex',
-                                        justifyContent:'center',
-                                        marginTop:'10px'
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            width:'2px',
-                                            backgroundColor:'#a770439E'
-                                        }}
-                                    >
-                                    </Box>
-                                </Grid>
-                                <Grid
-                                    className='description'
-                                    item
-                                    md={9}
-                                    sx={{
-                                        marginTop:'1vh',
-                                        marginBottom:'1vh'
-                                    }}
-                                >
-                                <Box
-                                    sx={{
-                                        marginLeft:'20px',
-                                        fontSize:'16px'
-                                    }}
-                                >
-                                    <ReactMarkdown
-                                        linkTarget={(href,children,title)=>(
-                                            <a href={href}>{children}</a>
-                                        )}
-                                    >
-                                        {step.description}
-                                    </ReactMarkdown>
-                                    
-                                </Box>
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={1}
-                                >
-                                </Grid>
-                            </Grid>
+                                isDesktop ? <BioDesktopContent step={step} index={index}/> : <BioMobileContent step={step} index={index}/>
                             ))}
                         </Box>
                         )
