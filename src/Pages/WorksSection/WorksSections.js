@@ -1,5 +1,6 @@
 import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
 import React, { useContext } from 'react'
+import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
 
 export const WorksSections = () => {
@@ -7,19 +8,23 @@ export const WorksSections = () => {
     const {label,title}=portfolioContent;
     const websites=portfolioContent.websites ? portfolioContent.websites : [];
    
+    const {mediaQueries}=Queries();
+    const {isDesktop}=mediaQueries;
+
   return (
     <Box
         sx={{
             paddingBottom:'3vh'
         }}
     >
-        <Typography
+       <Typography
             variant='h3'
             sx={{
                 textTransform:'uppercase',
                 fontWeight:'600',
                 textAlign:'center',
-                fontSize:'35px'
+                fontSize:isDesktop ? '33px' : '24px',
+                marginBottom:'1vh'
             }}
         >
             {title}
@@ -46,7 +51,7 @@ export const WorksSections = () => {
                     textTransform:'uppercase',
                     color:'#a77043',
                     fontWeight:'600',
-                    fontSize:'20px'
+                    fontSize:isDesktop ? '20px' : '16px',
                 }}
             >
                 {label}
@@ -74,6 +79,8 @@ export const WorksSections = () => {
                     key={index}
                     item
                     md={5}
+                    sm={6}
+                    xs={10}
                 >
                     <Card
                         elevation={2}

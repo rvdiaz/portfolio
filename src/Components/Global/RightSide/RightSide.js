@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import React, { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { Queries } from '../../../config/Queries'
 import { MenuContext } from '../../../Context/MenuContext'
 import { BioSection } from '../../../Pages/BioSection/BioSection'
 import { BlogSection } from '../../../Pages/BlogSection/BlogSection'
@@ -11,10 +12,12 @@ import { ServiceSection } from '../../../Pages/ServiceSection.js/ServiceSection'
 import { WorksSections } from '../../../Pages/WorksSection/WorksSections'
 
 export const RightSide = () => {
+  const {mediaQueries}=Queries();
+  const {isDesktop}= mediaQueries;
   return (
     <Box
       sx={{
-        height:'100%'
+        height:isDesktop ? '100%' : 'auto'
       }}
     >
         <Routes>

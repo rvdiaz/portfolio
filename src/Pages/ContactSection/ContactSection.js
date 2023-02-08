@@ -1,55 +1,108 @@
+import { CountertopsOutlined } from '@mui/icons-material';
 import { Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Queries } from '../../config/Queries';
 import { ContactContext } from '../../Context/PagesContext/ContactContext';
+import { validateForm } from '../../Helpers/ValidationForm';
 
 export const ContactSection = () => {
   const {contactContent}= useContext(ContactContext);
   const {title,label,submit}=contactContent;
   const form = contactContent.form ? contactContent.form : [];
-
   
-  const {theme,mediaQueries}=Queries();
-  const {isTablet,isDesktop,isMobile} = mediaQueries;
-
+  
+  const {mediaQueries}=Queries();
+  const {isTablet, isDesktop,isMobile} = mediaQueries;
 
   const [inputForm, setinputForm] = useState({
-    name:'',
-    phone:'',
-    email:'',
-    website:'',
-    message:''
-})
+    name:{
+      value:'',
+      error:false,
+      errorMessage:''
+    },
+    phone:{
+      value:'',
+      error:false,
+      errorMessage:''
+    },
+    email:{
+      value:'',
+      error:false,
+      errorMessage:''
+    },
+    website:{
+      value:'',
+      error:false,
+      errorMessage:''
+    },
+    message:{
+      value:'',
+      error:false,
+      errorMessage:''
+    }
+  })
+  const [error, seterror] = useState(false);
 
   const handleSubmit=(e)=>{
     e.preventDefault();
+    handleFormError();
+    console.log('submit');
+    
   }
-
+  
   const handlechangeform=(e)=>{
     setinputForm({
       ...inputForm,
-      [e.target.name]:e.target.value
+      [e.target.name]:{
+        ...[e.target.name],
+        value:e.target.value
+      }
     })
+  }  
+  const onBlurHandler=(e)=>{
     
   }
-  const handleInvalid=(e)=>{
-    e.preventDefault();
-    console.log(e.validationMessage);
+
+  const handleFormError=()=>{
+      validateForm(inputForm,setinputForm);
+  }
+
+  const formMobile={
+    display: 'flex',
+    flexDirection:'column',
+    width:'100%',
+    margin:'3vh auto',
+    gridGap:'0.5vh',
+    '& .Mui-focused:':{
+      borderColor:'#a770439E !important'
+    }
+  }
+  const formDesktop={
+    display:'grid',
+    width:'85%',
+    gridTemplateColumns: '1fr 1fr',
+    gridGap:'2vh',
+    margin:'3vh auto',
+    '& .Mui-focused:':{
+      borderColor:'#a770439E !important'
+    }
   }
   return (
-    <ThemeProvider theme={theme}>
+    <Box>
       <Typography
-          variant='h3'
-          sx={{
-              textTransform:'uppercase',
-              fontWeight:'600',
-              textAlign:'center',
-              fontSize:'35px'
-          }}
-      >
-          {title}
-      </Typography>
+            variant='h3'
+            sx={{
+                textTransform:'uppercase',
+                fontWeight:'600',
+                textAlign:'center',
+                fontSize:isDesktop ? '33px' : '24px',
+                marginBottom:'1vh'
+            }}
+        >
+            {title}
+        </Typography>
       <Box
       sx={{
           display:'flex',
@@ -67,16 +120,16 @@ export const ContactSection = () => {
           >
           </Box>
           <Typography
-              variant='h5'
-              sx={{
-                  textTransform:'uppercase',
-                  color:'#a77043',
-                  fontWeight:'600',
-                  fontSize:'20px'
-              }}
-          >
-              {label}
-          </Typography>
+                variant='h5'
+                sx={{
+                    textTransform:'uppercase',
+                    color:'#a77043',
+                    fontWeight:'600',
+                    fontSize:isDesktop ? '20px' : '16px',
+                }}
+            >
+                {label}
+            </Typography>
           <Box
           sx={{
               width:'20px',
@@ -87,35 +140,30 @@ export const ContactSection = () => {
       ></Box>
       </Box>
       <Box
+        noValidate
         onSubmit={handleSubmit}
         component="form"
-        sx={{
-          display:'grid',
-          width:'85%',
-          gridTemplateColumns:'1fr 1fr',
-          gridGap:'2vh',
-          margin:'3vh auto',
-          '& .Mui-focused:':{
-            borderColor:'#a770439E !important'
-          }
-        }}
+        sx={isMobile ? formMobile : formDesktop}
       >
         {form.map((input,index)=>{
+          const fieldName=input.label.toLowerCase();
         return(
           input.type != 'textarea'
           ?
           <TextField
-            onInvalid={handleInvalid}
+            error={inputForm[fieldName].error}
+            helperText={inputForm[fieldName].error ? inputForm[fieldName].errorMessage : ' '}
+            onBlur={onBlurHandler}
+            required={input.required ? true : false}
             color='themeColor'
             key={index}
-            name={input.label}
+            name={fieldName}
             label={input.label}
             type={input.type}
-            size='medium'
-            value={inputForm[input.label]}
+            size={isMobile ? 'small' : 'medium'}
+            value={inputForm[fieldName].value}
             onChange={handlechangeform}
             sx={{
-              textTransform:'capitalize',
               '& fieldset':{
                 borderColor:'#a770439E'
               },
@@ -132,15 +180,17 @@ export const ContactSection = () => {
           />
           :
           <TextField
+            helperText=' '
+            required={input.required ? true : false}
             color='themeColor'
             multiline
             key={index}
             minRows={4}
             maxRows={4}
-            name={input.label}
+            name={fieldName}
             label={input.label}
             type={input.type}
-            value={inputForm[input.label]}
+            value={inputForm[fieldName].value}
             onChange={handlechangeform}
             sx={{
               textTransform:'capitalize',
@@ -161,11 +211,11 @@ export const ContactSection = () => {
         <Button
           type='submit'
           disableRipple
-          size='large'
+          size={isMobile ? 'medium' : 'large'}
           sx={{
             color:'#a770439E',
             border:'1px solid #a770439E',
-            width:isDesktop ? '50%' : '100%',
+            width:isTablet ? '100%' : '50%',
             textAlign:'end',
             fontWeight:'600',
             '&:hover':{
@@ -178,6 +228,6 @@ export const ContactSection = () => {
           {submit?.label}
         </Button>
       </Box>
-    </ThemeProvider>
+    </Box>
   )
 }

@@ -101,7 +101,7 @@ export const HomeSection = () => {
                 sx={{
                     textTransform:'uppercase',
                     fontWeight:'600',
-                    textAlign:isMobile ? 'center' : 'start',
+                    textAlign:'center',
                     fontSize:isDesktop ? '33px' : '24px',
                     marginTop:'1vh'
                 }}
@@ -113,7 +113,7 @@ export const HomeSection = () => {
                 sx={{
                     textTransform:'uppercase',
                     fontWeight:'600',
-                    textAlign:isMobile ? 'center' : 'start',
+                    textAlign: 'center',
                     fontSize:isDesktop ? '33px' : '24px',
                     marginTop:'1vh'
                 }}
@@ -141,10 +141,10 @@ export const HomeSection = () => {
             </Box>
             
             <Box className="personal"
-                sx={isMobile && {
+                sx={isMobile ? {
                     width:'fit-content',
                     margin:'0 auto'
-                }}
+                } : {}}
             >
                 {
                    personal.map((info,index)=>(

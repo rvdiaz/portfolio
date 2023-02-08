@@ -13,7 +13,7 @@ export const BioSection = () => {
     const content=biographyContent.content ? biographyContent.content : [];
 
     const {mediaQueries}=Queries();
-    const {isDesktop,isMobile,isTablet}= mediaQueries;
+    const {isDesktop}= mediaQueries;
       
         return (
           <Box
@@ -75,35 +75,35 @@ export const BioSection = () => {
                 }}
             >
                 <Box >
-                        {content.map((category,index)=>{
-                            return (
+                    {content.map((category,index)=>{
+                        return (
+                    <Box
+                        key={index}
+                    >  
                         <Box
-                            key={index}
-                        >  
-                            <Box
-                                sx={{
-                                    borderBottom:'2px solid #a77043',
-                                    marginBottom:'1vh',
-                                    display:'flex',
-                                    justifyContent:'end'
-                                }}
+                            sx={{
+                                borderBottom:'2px solid #a77043',
+                                marginBottom:'1vh',
+                                display:'flex',
+                                justifyContent:'end'
+                            }}
+                        >
+                            <Typography
+                            sx={{
+                                width:'fit-content',
+                                padding:'5px 10px',
+                                color:'white',
+                                backgroundColor:'#a77043',
+                                fontWeight:'700'
+                            }}
                             >
-                                <Typography
-                                sx={{
-                                    width:'fit-content',
-                                    padding:'5px 10px',
-                                    color:'white',
-                                    backgroundColor:'#a77043',
-                                    fontWeight:'700'
-                                }}
-                                >
-                                    {category.categorytitle}
-                                </Typography>
-                            </Box>
-                            {category.categorycontent.map((step,index)=>(
-                                isDesktop ? <BioDesktopContent step={step} index={index}/> : <BioMobileContent step={step} index={index}/>
-                            ))}
+                                {category.categorytitle}
+                            </Typography>
                         </Box>
+                        {category.categorycontent.map((step,index)=>(
+                            isDesktop ? <BioDesktopContent key={index} step={step} index={index}/> : <BioMobileContent key={index} step={step} index={index}/>
+                        ))}
+                    </Box>
                         )
                     })
                     }

@@ -2,6 +2,7 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 
 import React, { useContext } from 'react'
 import { Image } from '../../Components/Basic/Image/Image';
+import { Queries } from '../../config/Queries';
 import { ServiceContext } from '../../Context/PagesContext/ServiceContext';
 
 export const ServiceSection = () => {
@@ -9,6 +10,9 @@ export const ServiceSection = () => {
 
     const {label,title}=serviceContent;
     const services=serviceContent?.services ? serviceContent?.services : [];
+
+    const {mediaQueries}=Queries();
+    const {isDesktop,isMobile}=mediaQueries;
 
   return (
    <Box
@@ -22,7 +26,9 @@ export const ServiceSection = () => {
             sx={{
                 textTransform:'uppercase',
                 fontWeight:'600',
-                fontSize:'35px'
+                textAlign:'center',
+                fontSize:isDesktop ? '33px' : '24px',
+                marginBottom:'1vh'
             }}
         >
             {title}
@@ -49,7 +55,7 @@ export const ServiceSection = () => {
                     textTransform:'uppercase',
                     color:'#a77043',
                     fontWeight:'600',
-                    fontSize:'20px'
+                    fontSize:isDesktop ? '20px' : '16px',
                 }}
             >
                 {label}
@@ -74,9 +80,8 @@ export const ServiceSection = () => {
                 return(
             <Grid 
                 item
-                md={6}
+                sm={6}
                 key={index}
-                
             >
                 <Box
                 >
@@ -92,7 +97,7 @@ export const ServiceSection = () => {
                     </Typography>
                     <Typography
                         sx={{
-                            fontSize:'24px',
+                            fontSize:isMobile ? '20px' : '24px',
                             fontWeight:"700",
                             lineHeight:'1.2',
                             margin:'0.6vh 0'

@@ -6,10 +6,13 @@ export const ThemeContext=createContext();
 
 export const ThemeContextProvider=(props)=>{
     const [theme, setTheme] = useState({
-        primaryColor:'red',
         perfilPicture:'',
         backgroundPage:'',
-        socialNetworks:[]
+        socialNetworks:[],
+        info:{
+            primaryColor:'',
+            copyright:''
+        }
     });
 
     useEffect(() => {
@@ -21,7 +24,11 @@ export const ThemeContextProvider=(props)=>{
             ...theme,
             perfilPicture:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.avatar.data.attributes.url,
             backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
-            socialNetworks:socialNetworks.data.data.attributes.social_networks.link
+            socialNetworks:socialNetworks.data.data.attributes.social_networks.link,
+            info:{
+                primaryColor:themeContext.data.data.attributes.theme.primaryColor,
+                copyright:themeContext.data.data.attributes.theme.copyright
+            }
         })
        }
 
