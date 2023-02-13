@@ -1,10 +1,11 @@
 import { CountertopsOutlined } from '@mui/icons-material';
-import { Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Alert, Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Queries } from '../../config/Queries';
 import { ContactContext } from '../../Context/PagesContext/ContactContext';
+import { SendForm } from '../../Helpers/SendForm';
 import { validateForm } from '../../Helpers/ValidationForm';
 
 export const ContactSection = () => {
@@ -43,15 +44,47 @@ export const ContactSection = () => {
       errorMessage:''
     }
   })
-  const [error, seterror] = useState(false);
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
-    handleFormError();
-    console.log('submit');
-    
+    if(handleFormError()){
+      const res=await SendForm(inputForm);
+      if(res.status==200){
+        handleResetFields();
+        Alert('sended Succesfully');
+      }
   }
-  
+}
+
+  const handleResetFields=()=>{
+    setinputForm({
+      name:{
+        value:'',
+        error:false,
+        errorMessage:''
+      },
+      phone:{
+        value:'',
+        error:false,
+        errorMessage:''
+      },
+      email:{
+        value:'',
+        error:false,
+        errorMessage:''
+      },
+      website:{
+        value:'',
+        error:false,
+        errorMessage:''
+      },
+      message:{
+        value:'',
+        error:false,
+        errorMessage:''
+      }
+    })
+  }
   const handlechangeform=(e)=>{
     setinputForm({
       ...inputForm,
@@ -66,7 +99,7 @@ export const ContactSection = () => {
   }
 
   const handleFormError=()=>{
-      validateForm(inputForm,setinputForm);
+      return validateForm(inputForm,setinputForm);
   }
 
   const formMobile={

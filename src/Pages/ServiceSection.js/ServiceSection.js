@@ -13,7 +13,7 @@ export const ServiceSection = () => {
 
     const {mediaQueries}=Queries();
     const {isDesktop,isMobile}=mediaQueries;
-
+    
   return (
    <Box
         sx={{

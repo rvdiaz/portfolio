@@ -3,7 +3,7 @@ export const validateForm=(inputForm,setinputForm)=>{
     let phone=inputForm.phone;
     let email=inputForm.email;
     let website=inputForm.website;
-
+    let valid=true;
     switch (true) {
         case inputForm.name.value == '':
             name={
@@ -11,6 +11,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'This field is required'
             }
+            valid=false;
             break;
         default:
             name=inputForm.name;
@@ -24,6 +25,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'This field is required'
             }
+            valid=false;
             break;
         case validatePhone(inputForm.phone.value):
             phone={
@@ -31,6 +33,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'Phone format is incorrect'
             }
+            valid=false;
             break;
         default:
             phone=inputForm.phone;
@@ -44,6 +47,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'This field is required'
             }
+            valid=false;
             break;
         case validateEmail(inputForm.email.value):
             email={
@@ -51,6 +55,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'Email format is incorrect'
             }
+            valid=false;
             break;
         default:
             email=inputForm.email;
@@ -63,6 +68,7 @@ export const validateForm=(inputForm,setinputForm)=>{
                 error:true,
                 errorMessage:'Website format is incorrect'
             }
+            valid=false;
             break;
         default:
             website=inputForm.website;
@@ -77,6 +83,8 @@ export const validateForm=(inputForm,setinputForm)=>{
     email:email,
     website:website 
     }})  
+
+    return valid;
 }
 
 
