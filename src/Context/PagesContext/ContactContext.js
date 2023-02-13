@@ -9,19 +9,12 @@ export const ContactContextProvider=(props)=>{
         contactContent:{}
     })
 
-    useEffect(() => {
-      const fetchData=async()=>{
-        const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*');
-
-        setcontent({
-            contactContent:contactContent.data.data.attributes
-        })
-      }
-      fetchData();
-    }, [])
+    const handleChange=(value)=>{
+      setcontent(value);
+    }
     
     return (
-        <ContactContext.Provider value={content}>{props.children}</ContactContext.Provider>
+        <ContactContext.Provider value={{content,handleChange}}>{props.children}</ContactContext.Provider>
     )
 
 }

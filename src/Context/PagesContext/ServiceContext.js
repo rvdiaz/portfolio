@@ -10,19 +10,11 @@ export const ServiceContextProvider=(props)=>{
         serviceContent:{}
     })
 
-    useEffect(() => {
-      const fetchData=async()=>{
-        const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*');
-    
-        setcontent({
-            serviceContent:serviceContent.data.data.attributes
-        })
-      }
+    const handleChange=(value)=>{
+      setcontent(value);
+    }
 
-      fetchData();
-    }, [])
-   
     return (
-        <ServiceContext.Provider value={content}>{props.children}</ServiceContext.Provider>
+        <ServiceContext.Provider value={{content,handleChange}}>{props.children}</ServiceContext.Provider>
     )
 }

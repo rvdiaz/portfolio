@@ -1,14 +1,30 @@
 import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
-import React, { useContext } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { BlogContext } from '../../Context/PagesContext/BlogContext';
 
 
 export const BlogSection = () => {
-  const {blogPage,blogs} = useContext(BlogContext);
+  const {content,handleChange} = useContext(BlogContext);
+  const {blogPage,blogs}=content;
   const {title,label}=blogPage;
   const listBlog= blogs ? blogs : [];
   const {pathname}= useLocation();
+
+  useEffect(() => {
+    const fetchData=async()=>{
+      const contentBlog=await axios(process.env.REACT_APP_API + '/api/blog-sections');
+      const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page');
+      handleChange({
+          blogs:contentBlog.data.data,
+          blogPage:contentBlogPage.data.data.attributes
+      })
+    }
+    
+    fetchData();    
+
+  }, [])
 
   return (
     <Box>

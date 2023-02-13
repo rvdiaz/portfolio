@@ -1,19 +1,33 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
+import axios from 'axios';
 
 import React, { useContext } from 'react'
+import { useEffect } from 'react';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { ServiceContext } from '../../Context/PagesContext/ServiceContext';
 
 export const ServiceSection = () => {
-    const {serviceContent}=useContext(ServiceContext);
-
+    const {content,handleChange}=useContext(ServiceContext);
+    const {serviceContent}=content;
     const {label,title}=serviceContent;
     const services=serviceContent?.services ? serviceContent?.services : [];
 
     const {mediaQueries}=Queries();
     const {isDesktop,isMobile}=mediaQueries;
     
+    useEffect(() => {
+        const fetchData=async()=>{
+          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*');
+      
+          handleChange({
+            serviceContent:serviceContent.data.data.attributes
+        })
+        }
+  
+        fetchData();
+      }, [])
+
   return (
    <Box
         sx={{

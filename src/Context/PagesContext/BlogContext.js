@@ -10,23 +10,13 @@ export const BlogContextProvider=(props)=>{
     }
     )
 
-    useEffect(() => {
-      const fetchData=async()=>{
-        const contentBlog=await axios(process.env.REACT_APP_API + '/api/blog-sections');
-        const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page');
-        setContentBlog({
-            blogs:contentBlog.data.data,
-            blogPage:contentBlogPage.data.data.attributes
-        })
-      }
-      
-      fetchData();    
-
-    }, [])
+    const handleChange=(value)=>{
+        setContentBlog(value);
+    }
    
     
     return (
-        <BlogContext.Provider value={contentBlog}>
+        <BlogContext.Provider value={{contentBlog,handleChange}}>
             {props.children}
         </BlogContext.Provider>
     )

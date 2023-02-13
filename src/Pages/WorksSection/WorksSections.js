@@ -1,15 +1,29 @@
 import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
-import React, { useContext } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react'
 import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
 
 export const WorksSections = () => {
-    const {portfolioContent}=useContext(PortfolioContext);
+    const {content,handleChange}=useContext(PortfolioContext);
+    const {portfolioContent}=content;
     const {label,title}=portfolioContent;
     const websites=portfolioContent.websites ? portfolioContent.websites : [];
    
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
+
+    useEffect(() => {
+        const fetchData=async()=>{
+        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*');
+
+        handleChange({
+            portfolioContent:portfolioContent.data.data.attributes
+          })
+      }
+
+        fetchData();
+    }, [])
 
   return (
     <Box

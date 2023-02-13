@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import React, { useContext } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react'
 
 import { Queries } from '../../config/Queries';
 import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
@@ -7,14 +8,25 @@ import { BioDesktopContent } from './BioDesktopContent';
 import { BioMobileContent } from './BioMobileContent';
 
 export const BioSection = () => {
-    const {biographyContent} = useContext(BiographyContext);
-    
+    const {contentBio,handleChange} = useContext(BiographyContext);
+    const {biographyContent}=contentBio;
     const {title,label}=biographyContent;
     const content=biographyContent.content ? biographyContent.content : [];
 
     const {mediaQueries}=Queries();
     const {isDesktop}= mediaQueries;
       
+    useEffect(() => {
+        const fetchData=async()=>{
+          const biographyContent=await axios(process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*');
+          
+          handleChange({
+              biographyContent:biographyContent.data.data.attributes 
+          })
+        }    
+        fetchData();
+      }, [])
+
     return (
         <Box
         sx={{

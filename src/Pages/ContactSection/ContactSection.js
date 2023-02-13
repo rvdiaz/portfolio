@@ -1,5 +1,6 @@
 import { CountertopsOutlined } from '@mui/icons-material';
 import { Alert, Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
+import axios from 'axios';
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,13 +10,25 @@ import { SendForm } from '../../Helpers/SendForm';
 import { validateForm } from '../../Helpers/ValidationForm';
 
 export const ContactSection = () => {
-  const {contactContent}= useContext(ContactContext);
+  const {content,handleChange}= useContext(ContactContext);
+  const {contactContent}=content;
   const {title,label,submit}=contactContent;
   const form = contactContent.form ? contactContent.form : [];
   
   
   const {mediaQueries}=Queries();
   const {isTablet, isDesktop,isMobile} = mediaQueries;
+
+  useEffect(() => {
+    const fetchData=async()=>{
+      const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*');
+
+      handleChange({
+          contactContent:contactContent.data.data.attributes
+      })
+    }
+    fetchData();
+  }, [])
 
   const [inputForm, setinputForm] = useState({
     name:{

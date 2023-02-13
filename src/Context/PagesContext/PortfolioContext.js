@@ -8,20 +8,12 @@ export const PortfolioContextProvider=(props)=>{
         portfolioContent:{}
     })
 
-    useEffect(() => {
-        const fetchData=async()=>{
-        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*');
-
-        setcontent({
-            portfolioContent:portfolioContent.data.data.attributes
-          })
+    const handleChange=(value)=>{
+        setcontent(value);
       }
 
-        fetchData();
-    }, [])
-
     return (
-        <PortfolioContext.Provider value={content}>{props.children}</PortfolioContext.Provider>
+        <PortfolioContext.Provider value={{content,handleChange}}>{props.children}</PortfolioContext.Provider>
     )
     
 }

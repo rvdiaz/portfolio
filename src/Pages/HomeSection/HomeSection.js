@@ -1,18 +1,34 @@
 import { Box, Typography } from '@mui/material';
-import React, { useContext } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { HomeContext } from '../../Context/PagesContext/HomeContext'
 
 export const HomeSection = () => {
-   const {homeContent} = useContext(HomeContext);
+   const {contentHome,handleChange} = useContext(HomeContext);
+   const {homeContent}=contentHome;
    const {content,image}=homeContent;
    const {title,label,description,profession,description_author}=content;
    const personal= content.personal ? content.personal : [];
 
    const {mediaQueries}=Queries();
    const {isMobile,isDesktop,isTablet}=mediaQueries;
+
+   useEffect(() => {
+    const fetchData=async()=>{
+        const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*');
+        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*');
+
+        handleChange({
+            homeContent:{
+                content:homeContent.data.data.attributes,
+                image:homeContentImage.data.data.attributes.image
+            }})
+    }
+    fetchData();
+}, [])
 
     const imageSize=()=>{
         switch (true) {
