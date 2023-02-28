@@ -18,8 +18,20 @@ export const HomeSection = () => {
 
    useEffect(() => {
     const fetchData=async()=>{
-        const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*');
-        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*');
+        const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
+        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
 
         handleChange({
             homeContent:{
@@ -65,7 +77,7 @@ export const HomeSection = () => {
                     width:imageSize,
                     height: isMobile ? '40vh' : 'auto'
                 }} 
-                src={process.env.REACT_APP_API + image.data?.attributes.url}
+                src={image.data?.attributes.url}
                 />
         </Box>
         <Box 
@@ -176,7 +188,7 @@ export const HomeSection = () => {
                             sx={{
                                 width:'30px'
                             }}
-                            src={process.env.REACT_APP_API + info.icon.data?.attributes.url}/>
+                            src={info.icon.data?.attributes.url}/>
                         <Typography
                             sx={{
                                 margin:'0 15px',

@@ -21,7 +21,13 @@ export const ContactSection = () => {
 
   useEffect(() => {
     const fetchData=async()=>{
-      const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*');
+      const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
+      {
+        headers: {
+            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+          },
+        }
+      );
 
       handleChange({
           contactContent:contactContent.data.data.attributes

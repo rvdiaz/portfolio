@@ -1,6 +1,6 @@
 import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
 
@@ -8,15 +8,24 @@ export const WorksSections = () => {
     const {content,handleChange}=useContext(PortfolioContext);
     const {portfolioContent}=content;
     const {label,title}=portfolioContent;
-    const websites=portfolioContent.websites ? portfolioContent.websites : [];
+    const websites=portfolioContent?.websites ? portfolioContent?.websites : [];
    
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
+    const [loading, setloading] = useState(false);
 
     useEffect(() => {
         const fetchData=async()=>{
-        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*');
-
+        setloading(true);
+        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
+        
+        setloading(false);
         handleChange({
             portfolioContent:portfolioContent.data.data.attributes
           })
@@ -115,7 +124,7 @@ export const WorksSections = () => {
                             href={website.href}>
                         <CardMedia
                             component='img'
-                            image={process.env.REACT_APP_API + website.image.data.attributes.url}
+                            image={website.image.data?.attributes.url}
                             sx={{
                                 width:'100%',
                                 height:'20vh',

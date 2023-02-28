@@ -1,5 +1,4 @@
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export const BiographyContext=createContext();
 
@@ -12,7 +11,6 @@ export const BiographyContentProvider=(props)=>{
       setcontent(value);
     }
     
-
     return (
         <BiographyContext.Provider value={{contentBio,handleChange}}>{props.children}</BiographyContext.Provider>
     )

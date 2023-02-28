@@ -14,8 +14,21 @@ export const BlogSection = () => {
 
   useEffect(() => {
     const fetchData=async()=>{
-      const contentBlog=await axios(process.env.REACT_APP_API + '/api/blog-sections');
-      const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page');
+      const contentBlog=await axios(
+        process.env.REACT_APP_API + '/api/blog-sections',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
+      const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page',
+      {
+        headers: {
+            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+          },
+        }
+      );
       handleChange({
           blogs:contentBlog.data.data,
           blogPage:contentBlogPage.data.data.attributes

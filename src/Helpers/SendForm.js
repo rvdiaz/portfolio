@@ -1,4 +1,3 @@
-import { ConstructionOutlined } from "@mui/icons-material";
 import axios from "axios";
 
 export const SendForm=(inputForm)=>{
@@ -19,15 +18,9 @@ export const SendForm=(inputForm)=>{
             "website":website,
             "message":message
         }
-    }
-   )
-    /* .then((response)=>{
-        if(response.status == 200){
-            console.log("sdd");
-            return true;
         }
-        return false;
-    }) */
+   )
+    
 } catch (error) {
         console.log(error);
 }

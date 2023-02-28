@@ -25,7 +25,7 @@ export const SocialNetworks = (props) => {
                     }}
                 >
                     <Image
-                        src={process.env.REACT_APP_API + social.image.data?.attributes.url}
+                        src={social.image.data?.attributes.url}
                         sx={{
                             width:'30px'
                         }}

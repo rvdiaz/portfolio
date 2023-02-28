@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
 
@@ -15,10 +15,19 @@ export const BioSection = () => {
 
     const {mediaQueries}=Queries();
     const {isDesktop}= mediaQueries;
-      
+    
     useEffect(() => {
+        
         const fetchData=async()=>{
-          const biographyContent=await axios(process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*');
+        
+          const biographyContent=await axios(
+            process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
+            {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            });
+           
           
           handleChange({
               biographyContent:biographyContent.data.data.attributes 
@@ -26,7 +35,7 @@ export const BioSection = () => {
         }    
         fetchData();
       }, [])
-
+    
     return (
         <Box
         sx={{

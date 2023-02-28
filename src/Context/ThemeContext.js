@@ -17,14 +17,26 @@ export const ThemeContextProvider=(props)=>{
 
     useEffect(() => {
         const fetchData=async ()=>{
-        const themeContext=await axios(process.env.REACT_APP_API+'/api/theme?populate[theme][populate]populate=*');
-        const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme?populate[social_networks][populate][link][populate]populate=*');
+        const themeContext=await axios(process.env.REACT_APP_API+'/api/theme?populate[theme][populate]populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
+        const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme?populate[social_networks][populate][link][populate]populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
 
         setTheme({
             ...theme,
-            perfilPicture:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.avatar.data.attributes.url,
-            backgroundPage:process.env.REACT_APP_API + themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
-            socialNetworks:socialNetworks.data.data.attributes.social_networks.link,
+            perfilPicture:themeContext.data.data.attributes.theme.avatar.data.attributes.url,
+            backgroundPage:themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
+            socialNetworks:socialNetworks.data.data.attributes.social_networks?.link,
             info:{
                 primaryColor:themeContext.data.data.attributes.theme.primaryColor,
                 copyright:themeContext.data.data.attributes.theme.copyright

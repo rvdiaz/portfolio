@@ -18,7 +18,13 @@ export const ServiceSection = () => {
     
     useEffect(() => {
         const fetchData=async()=>{
-          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*');
+          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
+          {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+          );
       
           handleChange({
             serviceContent:serviceContent.data.data.attributes
@@ -102,7 +108,7 @@ export const ServiceSection = () => {
                     <Typography   
                     >
                         <Image 
-                            src={process.env.REACT_APP_API + service.icon_service.data?.attributes.url} 
+                            src={service.icon_service.data?.attributes.url} 
                             alt={service.title}
                             sx={{
                                 width:'6vh'

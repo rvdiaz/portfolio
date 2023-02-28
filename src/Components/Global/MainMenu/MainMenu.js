@@ -37,7 +37,7 @@ export const MainMenu = () => {
           {pages.map((page,index)=>{
               const icon=page.icon?.data;
               const href=`/${page.label.toLowerCase()}`;
-  
+              console.log(icon);
               const color=(active === href)?'black':'#a09999';
               const borderBottom=isDesktop && ((active === href)?'2px solid #a77043':'2px solid #a770439E');
               return (
@@ -73,7 +73,7 @@ export const MainMenu = () => {
                     width:isDesktop ?'25px' : '20px',
                     marginRight:isDesktop ? '10px' : '0'
                   }}
-                  src={process.env.REACT_APP_API+ icon.attributes.url}/>
+                  src={icon.attributes.url}/>
                   }
                     {page.label}                  
                 </Button>
