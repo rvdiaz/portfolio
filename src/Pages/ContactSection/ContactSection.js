@@ -19,6 +19,12 @@ export const ContactSection = () => {
   const {mediaQueries}=Queries();
   const {isTablet, isDesktop,isMobile} = mediaQueries;
 
+  const [alert, setalert] = useState({
+    show: false,
+    message:'',
+    type:'success'
+  })
+
   useEffect(() => {
     const fetchData=async()=>{
       const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
@@ -67,11 +73,27 @@ export const ContactSection = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     if(handleFormError()){
-      const res=await SendForm(inputForm);
-      if(res.status==200){
-        handleResetFields();
-        Alert('sended Succesfully');
-      }
+        const res=await SendForm(inputForm);
+        if(res?.status){
+          setalert({
+            show:true,
+            message:res.data.error.message,
+            type:'error'
+        })
+        }else
+        setalert({
+          show:true,
+          message:'I will contact you soon',
+          type:'success'
+        })
+
+      setTimeout(() => {
+        setalert({
+          show:false,
+          message:'',
+          type:''
+        })
+      }, 4000);
   }
 }
 
@@ -260,6 +282,15 @@ export const ContactSection = () => {
             }}
           />
         )})}    
+        <Box
+          sx={{
+            width:'100%',
+            gridColumnStart:1,
+            gridColumnEnd:3,
+            display:isMobile ? 'block' : 'flex',
+            justifyContent:'space-between'
+          }}
+        >
         <Button
           type='submit'
           disableRipple
@@ -267,7 +298,7 @@ export const ContactSection = () => {
           sx={{
             color:'#a770439E',
             border:'1px solid #a770439E',
-            width:isTablet ? '100%' : '50%',
+            width:'40%',
             textAlign:'end',
             fontWeight:'600',
             '&:hover':{
@@ -279,6 +310,20 @@ export const ContactSection = () => {
         >
           {submit?.label}
         </Button>
+        {
+          alert.show &&
+          <Alert 
+          variant='outlined'
+          severity={alert.type}
+          sx={{
+            marginTop:isMobile ? '10px' : '0',
+            padding:'2px 16px'
+          }}
+          >
+          {alert.message}
+        </Alert>
+        }
+        </Box>
       </Box>
     </Box>
   )

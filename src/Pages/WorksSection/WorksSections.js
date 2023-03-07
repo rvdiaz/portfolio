@@ -132,7 +132,13 @@ export const WorksSections = () => {
                             }}
                         >
                         </CardMedia>
-                        <CardContent>
+                        <CardContent
+                            sx={{
+                                paddingBottom:'0 !important',
+                                padding:'10px !important',
+                                borderTop:'1px solid #e8e2e2'
+                            }}
+                        >
                             <Typography
                                 sx={{
                                     fontSize:'18px',

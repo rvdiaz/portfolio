@@ -1,14 +1,14 @@
 import axios from "axios";
 
-export const SendForm=(inputForm)=>{
+export const SendForm=async(inputForm)=>{
     try {
     const name=inputForm.name.value;
     const phone=inputForm.phone.value;
     const email=inputForm.email.value;
     const website=inputForm.website.value;
     const message=inputForm.message.value;
-
-    return axios.post(
+    let res;
+    await axios.post(
         process.env.REACT_APP_API+'/api/leads',
         {
         "data":{
@@ -18,10 +18,22 @@ export const SendForm=(inputForm)=>{
             "website":website,
             "message":message
         }
+        },
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+            }
         }
    )
-    
+    .then((response)=>{
+        response=response;
+    })
+    .catch(({response})=>{
+       res=response;
+    })
+    return res;
+
 } catch (error) {
-        console.log(error);
+    return error;
 }
 }

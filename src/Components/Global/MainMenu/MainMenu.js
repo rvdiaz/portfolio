@@ -37,7 +37,6 @@ export const MainMenu = () => {
           {pages.map((page,index)=>{
               const icon=page.icon?.data;
               const href=`/${page.label.toLowerCase()}`;
-              console.log(icon);
               const color=(active === href)?'black':'#a09999';
               const borderBottom=isDesktop && ((active === href)?'2px solid #a77043':'2px solid #a770439E');
               return (
