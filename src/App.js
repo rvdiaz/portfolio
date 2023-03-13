@@ -31,13 +31,10 @@ function App() {
     switch (true) {
       case isTablet:
         return '4vh 20px 1vh 20px';
-        break;
       case isMobile:
         return '3vh 20px 1vh 20px';
-        break;
       default:
         return '4vh 40px 4vh 40px';
-        break;
     }
   }
 

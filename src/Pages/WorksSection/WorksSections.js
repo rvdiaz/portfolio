@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Queries } from '../../config/Queries';

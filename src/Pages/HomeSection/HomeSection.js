@@ -46,13 +46,10 @@ export const HomeSection = () => {
         switch (true) {
             case isMobile:
                 return 'auto';
-                break;
             case isTablet:
                 return '350px';
-                break;
             default:
                 return '90%';
-                break;
         }
     }
   return (

@@ -26,7 +26,7 @@ export const SendForm=async(inputForm)=>{
         }
    )
     .then((response)=>{
-        response=response;
+        res=response;
     })
     .catch(({response})=>{
        res=response;

@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import { maxWidth } from '@mui/system'
 import React from 'react'
 
 export const Image = (props) => {

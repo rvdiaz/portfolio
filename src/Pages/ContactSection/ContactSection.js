@@ -1,5 +1,4 @@
-import { CountertopsOutlined } from '@mui/icons-material';
-import { Alert, Box, Button, createTheme, InputBase, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
@@ -17,7 +16,7 @@ export const ContactSection = () => {
   
   
   const {mediaQueries}=Queries();
-  const {isTablet, isDesktop,isMobile} = mediaQueries;
+  const {isDesktop,isMobile} = mediaQueries;
 
   const [alert, setalert] = useState({
     show: false,
@@ -86,6 +85,7 @@ export const ContactSection = () => {
           message:'I will contact you soon',
           type:'success'
         })
+        handleResetFields();
 
       setTimeout(() => {
         setalert({
@@ -222,7 +222,7 @@ export const ContactSection = () => {
         {form.map((input,index)=>{
           const fieldName=input.label.toLowerCase();
         return(
-          input.type != 'textarea'
+          input.type !== 'textarea'
           ?
           <TextField
             error={inputForm[fieldName].error}

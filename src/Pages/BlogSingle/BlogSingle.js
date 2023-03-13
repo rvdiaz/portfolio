@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React, { useState,useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 export const BlogSingle = () => {
   const {id}=useParams();

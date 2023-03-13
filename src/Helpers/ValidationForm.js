@@ -5,7 +5,7 @@ export const validateForm=(inputForm,setinputForm)=>{
     let website=inputForm.website;
     let valid=true;
     switch (true) {
-        case inputForm.name.value == '':
+        case inputForm.name.value === '':
             name={
                 ...inputForm.name,
                 error:true,
@@ -19,7 +19,7 @@ export const validateForm=(inputForm,setinputForm)=>{
     }
 
     switch (true) {
-        case inputForm.phone.value == '':
+        case inputForm.phone.value === '':
             phone={
                 ...inputForm.phone,
                 error:true,
@@ -41,7 +41,7 @@ export const validateForm=(inputForm,setinputForm)=>{
     }
     
     switch (true) {
-        case inputForm.email.value == '':
+        case inputForm.email.value === '':
             email={
                 ...inputForm.email,
                 error:true,
@@ -99,7 +99,7 @@ const validateEmail=(email)=>{
 }
 
 const validateWebsite=(website)=>{
-    if(website == '')
+    if(website === '')
     return false;
     const websiteCheck=/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
     return !website.match(websiteCheck);

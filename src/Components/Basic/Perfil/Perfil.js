@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Queries } from '../../../config/Queries';
 import { ThemeContext } from '../../../Context/ThemeContext';
 import { Image } from '../Image/Image'
-import { SocialNetworks } from '../SocialNetworks/SocialNetworks';
 
 export const Perfil = () => {
     const {perfilPicture}=useContext(ThemeContext);
@@ -15,13 +14,10 @@ export const Perfil = () => {
         switch (true) {
             case (queries.isTablet):
                 return '120px';
-                break;
             case (queries.isMobile):
                 return '100px';
-                break;
             default:
             return '100%';
-            break;
         }
     }
   return (

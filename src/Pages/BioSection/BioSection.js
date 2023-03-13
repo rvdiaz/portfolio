@@ -17,9 +17,7 @@ export const BioSection = () => {
     const {isDesktop}= mediaQueries;
     
     useEffect(() => {
-        
         const fetchData=async()=>{
-        
           const biographyContent=await axios(
             process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
             {
@@ -27,8 +25,6 @@ export const BioSection = () => {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
               },
             });
-           
-          
           handleChange({
               biographyContent:biographyContent.data.data.attributes 
           })

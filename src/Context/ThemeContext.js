@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-const baseUrl=process.env.REACT_APP_API;
 
 export const ThemeContext=createContext();
 
@@ -45,7 +44,7 @@ export const ThemeContextProvider=(props)=>{
        }
 
        fetchData();
-    }, [])
+    }, [theme])
     
     return(
         <ThemeContext.Provider value={theme}>

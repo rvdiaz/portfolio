@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { createContext } from "react";
 
 export const ContactContext=createContext();
