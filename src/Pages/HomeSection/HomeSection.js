@@ -18,14 +18,14 @@ export const HomeSection = () => {
 
    useEffect(() => {
     const fetchData=async()=>{
-        const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*',
+        const homeContent=await axios(process.env.REACT_APP_API + '/api/home-pompi?[populate][personal][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
               },
             }
         );
-        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*',
+        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home-pompi?populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`

@@ -17,7 +17,7 @@ export const WorksSections = () => {
     useEffect(() => {
         const fetchData=async()=>{
         setloading(true);
-        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
+        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio-pompi?[populate][websites][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`

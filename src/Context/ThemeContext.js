@@ -16,14 +16,14 @@ export const ThemeContextProvider=(props)=>{
 
     useEffect(() => {
         const fetchData=async ()=>{
-        const themeContext=await axios(process.env.REACT_APP_API+'/api/theme?populate[theme][populate]populate=*',
+        const themeContext=await axios(process.env.REACT_APP_API+'/api/theme-pompi?populate[theme][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
               },
             }
         );
-        const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme?populate[social_networks][populate][link][populate]populate=*',
+        const socialNetworks = await axios(process.env.REACT_APP_API+'/api/theme-pompi?populate[social_networks][populate][link][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`

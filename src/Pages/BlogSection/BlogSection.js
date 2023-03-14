@@ -15,14 +15,14 @@ export const BlogSection = () => {
   useEffect(() => {
     const fetchData=async()=>{
       const contentBlog=await axios(
-        process.env.REACT_APP_API + '/api/blog-sections',
+        process.env.REACT_APP_API + '/api/bogs-pompis',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
               },
             }
         );
-      const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page',
+      const contentBlogPage= await axios(process.env.REACT_APP_API + '/api/blog-page-pompi',
       {
         headers: {
             Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`

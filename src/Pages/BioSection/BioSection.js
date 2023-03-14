@@ -19,7 +19,7 @@ export const BioSection = () => {
     useEffect(() => {
         const fetchData=async()=>{
           const biographyContent=await axios(
-            process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
+            process.env.REACT_APP_API + '/api/biography-pompi?[populate][content][populate]populate=*',
             {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
