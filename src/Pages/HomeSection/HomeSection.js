@@ -1,13 +1,17 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { HomeContext } from '../../Context/PagesContext/HomeContext'
+import { ThemeContext } from '../../Context/ThemeContext';
 
 export const HomeSection = () => {
    const {contentHome,handleChange} = useContext(HomeContext);
+   const {info}=useContext(ThemeContext);
+    const {primaryColor}=info;
+
    const {homeContent}=contentHome;
    const {content,image,resume}=homeContent;
    const {title,label,description,profession,description_author}=content;
