@@ -73,10 +73,11 @@ export const ContactSection = () => {
     e.preventDefault();
     if(handleFormError()){
         const res=await SendForm(inputForm);
-        if(res?.status){
+        console.log(res.status);
+        if(res?.status!=200){
           setalert({
             show:true,
-            message:res.data.error.message,
+            message:"Error connecting to the server",
             type:'error'
         })
         }else
