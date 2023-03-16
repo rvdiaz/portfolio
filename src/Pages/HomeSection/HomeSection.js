@@ -1,17 +1,23 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { HomeContext } from '../../Context/PagesContext/HomeContext'
+import { ThemeContext } from '../../Context/ThemeContext';
 
 export const HomeSection = () => {
    const {contentHome,handleChange} = useContext(HomeContext);
+    const {info}=useContext(ThemeContext);
+    const {primaryColor}=info;
+
    const {homeContent}=contentHome;
-   const {content,image}=homeContent;
+   const {content,image,resume}=homeContent;
    const {title,label,description,profession,description_author}=content;
    const personal= content.personal ? content.personal : [];
+
+
 
    const {mediaQueries}=Queries();
    const {isMobile,isDesktop,isTablet}=mediaQueries;
@@ -32,11 +38,18 @@ export const HomeSection = () => {
               },
             }
         );
-
+        const resumeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][resume][populate]populate=*',
+        {
+            headers: {
+                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+              },
+            }
+        );
         handleChange({
             homeContent:{
                 content:homeContent.data.data.attributes,
-                image:homeContentImage.data.data.attributes.image
+                image:homeContentImage.data.data.attributes.image,
+                resume:resumeContent.data.data.attributes.resume
             }})
     }
     fetchData();
@@ -168,8 +181,13 @@ export const HomeSection = () => {
             <Box className="personal"
                 sx={isMobile ? {
                     width:'fit-content',
-                    margin:'0 auto'
-                } : {}}
+                    margin:'0 auto',
+                    display:'flex',
+                    flexDirection:'column'
+                } : {
+                    display:'flex',
+                    flexDirection:'column'
+                }}
             >
                 {
                    personal.map((info,index)=>(
@@ -206,6 +224,33 @@ export const HomeSection = () => {
                     </Box>
                    ))
                 }
+                 <Button 
+                  disableRipple
+                  target={resume?.target}
+                  href={resume?.filetodown.data?.attributes.url}
+                  sx={{
+                    color: primaryColor,
+                    border:'1px solid #a770439E',
+                    width:'fit-content',
+                    margin:"20px auto",
+                    fontWeight:'600',
+                    '&:hover':{
+                      border:'1px solid #a77043',
+                      color:primaryColor,
+                      backgroundColor:'transparent'
+                    }
+                  }}
+                  >
+                  {resume?.label}   
+                  {resume?.image&& 
+                  <Image 
+                  sx={{
+                    width:isDesktop ?'25px' : '20px',
+                    marginRight:isDesktop ? '10px' : '0'
+                  }}
+                  src={resume.image.data?.attributes.url}/>
+                  }          
+                </Button>
             </Box>
         </Box>
     </Box>
