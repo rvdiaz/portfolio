@@ -44,7 +44,7 @@ export const ThemeContextProvider=(props)=>{
        }
 
        fetchData();
-    }, [theme])
+    }, [])
     
     return(
         <ThemeContext.Provider value={theme}>
