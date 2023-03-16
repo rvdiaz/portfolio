@@ -18,7 +18,7 @@ export const ServiceSection = () => {
     
     useEffect(() => {
         const fetchData=async()=>{
-          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service-pompi?populate[services][populate]populate=*',
+          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
           {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
