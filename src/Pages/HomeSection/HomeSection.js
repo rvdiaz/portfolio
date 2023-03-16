@@ -179,8 +179,13 @@ export const HomeSection = () => {
             <Box className="personal"
                 sx={isMobile ? {
                     width:'fit-content',
-                    margin:'0 auto'
-                } : {}}
+                    margin:'0 auto',
+                    display:'flex',
+                    flexDirection:'column'
+                } : {
+                    display:'flex',
+                    flexDirection:'column'
+                }}
             >
                 {
                    personal.map((info,index)=>(
