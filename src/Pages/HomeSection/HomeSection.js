@@ -31,7 +31,7 @@ export const HomeSection = () => {
               },
             }
         );
-        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*',
+        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home-pompi?populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`

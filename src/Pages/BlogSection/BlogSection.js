@@ -15,7 +15,7 @@ export const BlogSection = () => {
   useEffect(() => {
     const fetchData=async()=>{
       const contentBlog=await axios(
-        process.env.REACT_APP_API + '/api/blog-sections',
+        process.env.REACT_APP_API + '/api/bogs',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
