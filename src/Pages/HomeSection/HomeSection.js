@@ -170,7 +170,8 @@ export const HomeSection = () => {
                 >{description}</ReactMarkdown>
                 <Typography
                     sx={{
-                        fontStyle:'italic'
+                        fontStyle:'italic',
+                        textAlign:isMobile ? 'center' : 'end'
                     }}>   
                     {description_author}
                 </Typography>
@@ -197,11 +198,14 @@ export const HomeSection = () => {
                             marginTop:'3vh'
                         }}
                     >
-                        <Image 
+                        {
+                            info.icon.data &&
+                            <Image 
                             sx={{
                                 width:'30px'
                             }}
                             src={info.icon.data?.attributes.url}/>
+                        }
                         <Typography
                             sx={{
                                 margin:'0 15px',
