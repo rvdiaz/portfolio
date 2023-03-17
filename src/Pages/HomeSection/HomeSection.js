@@ -47,13 +47,15 @@ export const HomeSection = () => {
           },
         }
     );
-    handleChange({
-        homeContent:{
-            content:homeContent.data.data.attributes,
-            image:homeContentImage.data.data.attributes.image,
-            resume:resumeContent.data.data.attributes.resume
-    }})
-    setloading(false);
+    const timer = setTimeout(() => {
+        handleChange({
+            homeContent:{
+                content:homeContent.data.data.attributes,
+                image:homeContentImage.data.data.attributes.image,
+                resume:resumeContent.data.data.attributes.resume
+        }})
+        setloading(false);
+      }, 500);
 }
 
    useEffect(() => {   

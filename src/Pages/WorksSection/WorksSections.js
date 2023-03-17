@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
+import { WorkSkeleton } from './WorkSkeleton';
 
 export const WorksSections = () => {
     const {content,handleChange}=useContext(PortfolioContext);
@@ -12,6 +13,7 @@ export const WorksSections = () => {
    
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
+
     const [loading, setloading] = useState(false);
 
     useEffect(() => {
@@ -24,17 +26,22 @@ export const WorksSections = () => {
               },
             }
         );
-        
-        setloading(false);
-        handleChange({
-            portfolioContent:portfolioContent.data.data.attributes
-          })
+        const timer=setTimeout(() => {
+            handleChange({
+                portfolioContent:portfolioContent.data.data.attributes
+              })
+            setloading(false);
+        }, 500);
+        return () => clearTimeout(timer);
       }
 
         fetchData();
     }, [])
 
   return (
+    loading ?
+    <WorkSkeleton/>
+    :
     <Box
         sx={{
             paddingBottom:'3vh'

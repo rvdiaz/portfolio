@@ -2,10 +2,12 @@ import { Box, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 
 import React, { useContext } from 'react'
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { ServiceContext } from '../../Context/PagesContext/ServiceContext';
+import { ServiceSkeleton } from './ServiceSkeleton';
 
 export const ServiceSection = () => {
     const {content,handleChange}=useContext(ServiceContext);
@@ -16,8 +18,10 @@ export const ServiceSection = () => {
     const {mediaQueries}=Queries();
     const {isDesktop,isMobile}=mediaQueries;
     
+    const [loading, setloading] = useState(false);
     useEffect(() => {
         const fetchData=async()=>{
+          setloading(true);
           const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
           {
             headers: {
@@ -25,16 +29,24 @@ export const ServiceSection = () => {
               },
             }
           );
-      
-          handleChange({
-            serviceContent:serviceContent.data.data.attributes
-        })
+             
+        const timer=setTimeout(() => {
+            handleChange({
+                serviceContent:serviceContent.data.data.attributes
+            })
+            setloading(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
         }
-  
         fetchData();
       }, [])
 
   return (
+    loading ?
+    <ServiceSkeleton/>
+    :
+    /* <ServiceSkeleton/> */
    <Box
         sx={{
             textAlign:'center',

@@ -27,7 +27,7 @@ export const BioSkeleton = () => {
             >
             <Box
             sx={{
-                width:'100%'
+                width:'100%',
             }}
             >
                 <Box
@@ -55,7 +55,8 @@ export const BioSkeleton = () => {
                         display:'flex',
                         justifyContent:'start',
                         width:'100%',
-                        marginTop:'2vh'
+                        marginTop:'2vh',
+                        padding:'0 10%'
                     }}>
                     <Skeleton 
                         variant="circular"

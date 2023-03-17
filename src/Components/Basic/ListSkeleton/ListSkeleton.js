@@ -1,4 +1,4 @@
-import { Skeleton } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 import React from 'react'
 
 export const ListSkeleton = (props) => {
@@ -8,7 +8,7 @@ export const ListSkeleton = (props) => {
     list
     .fill(1)
     .map(()=>(
-        children
+      children    
     ))
   )
 }

@@ -7,6 +7,7 @@ import { Queries } from '../../config/Queries';
 import { ContactContext } from '../../Context/PagesContext/ContactContext';
 import { SendForm } from '../../Helpers/SendForm';
 import { validateForm } from '../../Helpers/ValidationForm';
+import { ContactSkeleton } from './ContactSkeleton';
 
 export const ContactSection = () => {
   const {content,handleChange}= useContext(ContactContext);
@@ -14,7 +15,8 @@ export const ContactSection = () => {
   const {title,label,submit}=contactContent;
   const form = contactContent.form ? contactContent.form : [];
   
-  
+  const [loading, setloading] = useState(false);
+
   const {mediaQueries}=Queries();
   const {isDesktop,isMobile} = mediaQueries;
 
@@ -26,6 +28,7 @@ export const ContactSection = () => {
 
   useEffect(() => {
     const fetchData=async()=>{
+      setloading(true);
       const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
       {
         headers: {
@@ -34,9 +37,13 @@ export const ContactSection = () => {
         }
       );
 
-      handleChange({
+      const timer=setTimeout(() => {
+        handleChange({
           contactContent:contactContent.data.data.attributes
-      })
+      });
+      setloading(false);
+      }, 500);
+      return ()=>clearInterval(timer);
     }
     fetchData();
   }, [])
@@ -164,6 +171,9 @@ export const ContactSection = () => {
     }
   }
   return (
+    loading ?
+    <ContactSkeleton/>
+    :
     <Box>
       <Typography
             variant='h3'

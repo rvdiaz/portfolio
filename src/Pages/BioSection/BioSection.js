@@ -20,28 +20,33 @@ export const BioSection = () => {
     const {mediaQueries}=Queries();
     const {isDesktop}= mediaQueries;
     
+    const fetchData=async()=>{
+        setloading(true);
+        const biographyContent=await axios(
+          process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
+          {
+          headers: {
+              Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+            },
+          });
+          const timer = setTimeout(() => {
+            handleChange({
+                biographyContent:biographyContent.data.data.attributes 
+            })
+            setloading(false);
+          }, 500);
+          return () => clearTimeout(timer);
+        
+      }  
+
     useEffect(() => {
-        const fetchData=async()=>{
-          setloading(true);
-          const biographyContent=await axios(
-            process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
-            {
-            headers: {
-                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-              },
-            });
-          handleChange({
-              biographyContent:biographyContent.data.data.attributes 
-          })
-          setloading(false);
-        }    
         fetchData();
       }, [])
+
     return (
         loading ?
         <BioSkeleton/> 
         :
-       /*  <BioSkeleton/>  */
         <Box
         sx={{
             paddingBottom:'3vh'
