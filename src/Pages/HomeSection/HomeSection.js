@@ -1,16 +1,20 @@
 import { Box, Button, Typography } from '@mui/material';
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { HomeContext } from '../../Context/PagesContext/HomeContext'
 import { ThemeContext } from '../../Context/ThemeContext';
+import { HomeSkeleton } from './HomeSkeleton';
 
 export const HomeSection = () => {
    const {contentHome,handleChange} = useContext(HomeContext);
    const {info}=useContext(ThemeContext);
-    const {primaryColor}=info;
+   const {primaryColor}=info;
+
+   const [loading, setloading] = useState(true);
 
    const {homeContent}=contentHome;
    const {content,image,resume}=homeContent;
@@ -19,37 +23,40 @@ export const HomeSection = () => {
 
    const {mediaQueries}=Queries();
    const {isMobile,isDesktop,isTablet}=mediaQueries;
+   
+   const fetchData=async()=>{
+    setloading(true);
+    const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*',
+    {
+        headers: {
+            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+          },
+        }
+    );
+    const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*',
+    {
+        headers: {
+            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+          },
+        }
+    );
+    const resumeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][resume][populate]populate=*',
+    {
+        headers: {
+            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+          },
+        }
+    );
+    handleChange({
+        homeContent:{
+            content:homeContent.data.data.attributes,
+            image:homeContentImage.data.data.attributes.image,
+            resume:resumeContent.data.data.attributes.resume
+    }})
+    setloading(false);
+}
 
-   useEffect(() => {
-    const fetchData=async()=>{
-        const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*',
-        {
-            headers: {
-                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-              },
-            }
-        );
-        const homeContentImage=await axios(process.env.REACT_APP_API + '/api/home?populate=*',
-        {
-            headers: {
-                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-              },
-            }
-        );
-        const resumeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][resume][populate]populate=*',
-        {
-            headers: {
-                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-              },
-            }
-        );
-        handleChange({
-            homeContent:{
-                content:homeContent.data.data.attributes,
-                image:homeContentImage.data.data.attributes.image,
-                resume:resumeContent.data.data.attributes.resume
-            }})
-    }
+   useEffect(() => {   
     fetchData();
 }, [])
 
@@ -64,6 +71,9 @@ export const HomeSection = () => {
         }
     }
   return (
+    loading ?
+    <HomeSkeleton/>
+    :
     <Box
         sx={{
             display:'flex',

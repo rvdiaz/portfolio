@@ -1,11 +1,13 @@
 import { Box, Typography } from '@mui/material';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import React, { useContext, useEffect } from 'react'
+import { useState } from 'react';
 
 import { Queries } from '../../config/Queries';
 import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
 import { BioDesktopContent } from './BioDesktopContent';
 import { BioMobileContent } from './BioMobileContent';
+import { BioSkeleton } from './BioSkeleton';
 
 export const BioSection = () => {
     const {contentBio,handleChange} = useContext(BiographyContext);
@@ -13,11 +15,14 @@ export const BioSection = () => {
     const {title,label}=biographyContent;
     const content=biographyContent.content ? biographyContent.content : [];
 
+    const [loading, setloading] = useState(false);
+
     const {mediaQueries}=Queries();
     const {isDesktop}= mediaQueries;
     
     useEffect(() => {
         const fetchData=async()=>{
+          setloading(true);
           const biographyContent=await axios(
             process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
             {
@@ -28,11 +33,15 @@ export const BioSection = () => {
           handleChange({
               biographyContent:biographyContent.data.data.attributes 
           })
+          setloading(false);
         }    
         fetchData();
       }, [])
-    
     return (
+        loading ?
+        <BioSkeleton/> 
+        :
+       /*  <BioSkeleton/>  */
         <Box
         sx={{
             paddingBottom:'3vh'

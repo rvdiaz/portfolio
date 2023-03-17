@@ -73,7 +73,6 @@ export const ContactSection = () => {
     e.preventDefault();
     if(handleFormError()){
         const res=await SendForm(inputForm);
-        console.log(res.status);
         if(res?.status!=200){
           setalert({
             show:true,
