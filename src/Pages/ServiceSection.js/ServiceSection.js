@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Fade, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 
 import React, { useContext } from 'react'
@@ -19,26 +19,26 @@ export const ServiceSection = () => {
     const {isDesktop,isMobile}=mediaQueries;
     
     const [loading, setloading] = useState(false);
-    useEffect(() => {
-        const fetchData=async()=>{
-          setloading(true);
-          const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
-          {
-            headers: {
-                Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-              },
-            }
-          );
-             
-        const timer=setTimeout(() => {
-            handleChange({
-                serviceContent:serviceContent.data.data.attributes
-            })
-            setloading(false);
-        }, 500);
 
-        return () => clearTimeout(timer);
-        }
+    const fetchData=async()=>{
+        setloading(true);
+        const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
+        {
+          headers: {
+              Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+            },
+          }
+        );
+      const timer=setTimeout(() => {
+        handleChange({
+            serviceContent:serviceContent.data.data.attributes
+            })
+        setloading(false);
+      }, 200);
+      return ()=>clearTimeout(timer);
+      }
+
+    useEffect(() => {
         fetchData();
       }, [])
 
@@ -46,108 +46,109 @@ export const ServiceSection = () => {
     loading ?
     <ServiceSkeleton/>
     :
-    /* <ServiceSkeleton/> */
-   <Box
-        sx={{
-            textAlign:'center',
-            paddingBottom:'3vh'
-        }}
-    >
-        <Typography
-            variant='h3'
-            sx={{
-                textTransform:'uppercase',
-                fontWeight:'600',
-                textAlign:'center',
-                fontSize:isDesktop ? '33px' : '24px',
-                marginBottom:'1vh'
-            }}
-        >
-            {title}
-        </Typography>
+    <Fade in={!loading} timeout={600}>
         <Box
-            sx={{
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center'
-            }}
-        >
-            <Box
                 sx={{
-                    width:'20px',
-                    height:'2px',
-                    backgroundColor:'#a77043',
-                    marginRight:'5px'
+                    textAlign:'center',
+                    paddingBottom:'3vh'
                 }}
             >
-            </Box>
-            <Typography
-                variant='h5'
-                sx={{
-                    textTransform:'uppercase',
-                    color:'#a77043',
-                    fontWeight:'600',
-                    fontSize:isDesktop ? '20px' : '16px',
-                }}
-            >
-                {label}
-            </Typography>
-            <Box
-                sx={{
-                    width:'20px',
-                    height:'2px',
-                    backgroundColor:'#a77043',
-                    marginLeft:'5px'
-                }}
-            ></Box>
-        </Box>
-        <Grid
-            container
-            spacing={3}
-            sx={{
-                marginTop:'1vh'
-            }}
-        >
-            {services.map((service,index)=>{
-                return(
-            <Grid 
-                item
-                sm={6}
-                key={index}
-            >
-                <Box
+                <Typography
+                    variant='h3'
+                    sx={{
+                        textTransform:'uppercase',
+                        fontWeight:'600',
+                        textAlign:'center',
+                        fontSize:isDesktop ? '33px' : '24px',
+                        marginBottom:'1vh'
+                    }}
                 >
-                    <Typography   
-                    >
-                        <Image 
-                            src={service.icon_service.data?.attributes.url} 
-                            alt={service.title}
-                            sx={{
-                                width:'6vh'
-                            }}
-                            />
-                    </Typography>
-                    <Typography
+                    {title}
+                </Typography>
+                <Box
+                    sx={{
+                        display:'flex',
+                        justifyContent:'center',
+                        alignItems:'center'
+                    }}
+                >
+                    <Box
                         sx={{
-                            fontSize:isMobile ? '20px' : '24px',
-                            fontWeight:"700",
-                            lineHeight:'1.2',
-                            margin:'0.6vh 0'
+                            width:'20px',
+                            height:'2px',
+                            backgroundColor:'#a77043',
+                            marginRight:'5px'
                         }}
                     >
-                        {service.title}
-                    </Typography>
+                    </Box>
                     <Typography
-                        variant='body2'
+                        variant='h5'
+                        sx={{
+                            textTransform:'uppercase',
+                            color:'#a77043',
+                            fontWeight:'600',
+                            fontSize:isDesktop ? '20px' : '16px',
+                        }}
                     >
-                        {service.description}
+                        {label}
                     </Typography>
+                    <Box
+                        sx={{
+                            width:'20px',
+                            height:'2px',
+                            backgroundColor:'#a77043',
+                            marginLeft:'5px'
+                        }}
+                    ></Box>
                 </Box>
-            </Grid>
-            )}
-            )}     
-              
-        </Grid>
-   </Box>
+                <Grid
+                    container
+                    spacing={3}
+                    sx={{
+                        marginTop:'1vh'
+                    }}
+                >
+                    {services.map((service,index)=>{
+                        return(
+                    <Grid 
+                        item
+                        sm={6}
+                        key={index}
+                    >
+                        <Box
+                        >
+                            <Typography   
+                            >
+                                <Image 
+                                    src={service.icon_service.data?.attributes.url} 
+                                    alt={service.title}
+                                    sx={{
+                                        width:'6vh'
+                                    }}
+                                    />
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontSize:isMobile ? '20px' : '24px',
+                                    fontWeight:"700",
+                                    lineHeight:'1.2',
+                                    margin:'0.6vh 0'
+                                }}
+                            >
+                                {service.title}
+                            </Typography>
+                            <Typography
+                                variant='body2'
+                            >
+                                {service.description}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    )}
+                    )}     
+                    
+                </Grid>
+        </Box>
+    </Fade>
   )
 }

@@ -2,8 +2,11 @@ import { Skeleton } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { ListSkeleton } from '../../Components/Basic/ListSkeleton/ListSkeleton'
+import { Queries } from '../../config/Queries'
 
 export const BioSkeleton = () => {
+    const {mediaQueries}=Queries();
+    const {isMobile}=mediaQueries;
   return (
     <Box
         sx={{
@@ -46,7 +49,7 @@ export const BioSkeleton = () => {
                     />
                     <Skeleton 
                         variant="rectangular"
-                        width='10%'
+                        width={isMobile ? '20%' : '10%'}
                         height={40}
                     />
                 </Box>

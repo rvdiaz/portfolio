@@ -91,6 +91,6 @@ export const HomeSkeleton = () => {
             </ListSkeleton>
         </Box>
     </Box>
-</Box>
+    </Box>
   )
 }

@@ -28,7 +28,8 @@ export const Perfil = () => {
     >
         <Link to='/'>
             <Image
-                src={perfilPicture}
+                alt={perfilPicture.alternativeText}
+                src={perfilPicture.url}
                 sx={{
                     width:widthImage(),
                     borderRadius:'50%',

@@ -1,4 +1,4 @@
-import { Alert, Box, Button, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Fade, TextField, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
@@ -26,25 +26,26 @@ export const ContactSection = () => {
     type:'success'
   })
 
-  useEffect(() => {
-    const fetchData=async()=>{
-      setloading(true);
-      const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
-      {
-        headers: {
-            Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
-          },
-        }
-      );
+  const fetchData=async()=>{
+    setloading(true);
+    const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
+    {
+      headers: {
+          Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
+        },
+      }
+    );
+   const timer=setTimeout(() => {
+    handleChange({
+      contactContent:contactContent.data.data.attributes
+    });
+    setloading(false);
+   }, 200);
 
-      const timer=setTimeout(() => {
-        handleChange({
-          contactContent:contactContent.data.data.attributes
-      });
-      setloading(false);
-      }, 500);
-      return ()=>clearInterval(timer);
-    }
+   return ()=>clearTimeout(timer);
+  }
+
+  useEffect(() => {
     fetchData();
   }, [])
 
@@ -172,169 +173,171 @@ export const ContactSection = () => {
   }
   return (
     loading ?
-    <ContactSkeleton/>
+      <ContactSkeleton/>
     :
-    <Box>
-      <Typography
-            variant='h3'
-            sx={{
-                textTransform:'uppercase',
-                fontWeight:'600',
-                textAlign:'center',
-                fontSize:isDesktop ? '33px' : '24px',
-                marginBottom:'1vh'
-            }}
-        >
-            {title}
-        </Typography>
-      <Box
-      sx={{
-          display:'flex',
-          justifyContent:'center',
-          alignItems:'center'
-      }}
-      >
-          <Box
+    <Fade in={!loading} timeout={1000}>
+      <Box>
+        <Typography
+              variant='h3'
               sx={{
-                  width:'20px',
-                  height:'2px',
-                  backgroundColor:'#a77043',
-                  marginRight:'5px'
+                  textTransform:'uppercase',
+                  fontWeight:'600',
+                  textAlign:'center',
+                  fontSize:isDesktop ? '33px' : '24px',
+                  marginBottom:'1vh'
               }}
           >
-          </Box>
-          <Typography
-                variant='h5'
+              {title}
+          </Typography>
+        <Box
+        sx={{
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center'
+        }}
+        >
+            <Box
                 sx={{
-                    textTransform:'uppercase',
-                    color:'#a77043',
-                    fontWeight:'600',
-                    fontSize:isDesktop ? '20px' : '16px',
+                    width:'20px',
+                    height:'2px',
+                    backgroundColor:'#a77043',
+                    marginRight:'5px'
                 }}
             >
-                {label}
-            </Typography>
-          <Box
-          sx={{
-              width:'20px',
-              height:'2px',
-              backgroundColor:'#a77043',
-              marginLeft:'5px'
-          }}
-      ></Box>
-      </Box>
-      <Box
-        noValidate
-        onSubmit={handleSubmit}
-        component="form"
-        sx={isMobile ? formMobile : formDesktop}
-      >
-        {form.map((input,index)=>{
-          const fieldName=input.label.toLowerCase();
-        return(
-          input.type !== 'textarea'
-          ?
-          <TextField
-            error={inputForm[fieldName].error}
-            helperText={inputForm[fieldName].error ? inputForm[fieldName].errorMessage : ' '}
-            onBlur={onBlurHandler}
-            required={input.required ? true : false}
-            color='themeColor'
-            key={index}
-            name={fieldName}
-            label={input.label}
-            type={input.type}
-            size={isMobile ? 'small' : 'medium'}
-            value={inputForm[fieldName].value}
-            onChange={handlechangeform}
+            </Box>
+            <Typography
+                  variant='h5'
+                  sx={{
+                      textTransform:'uppercase',
+                      color:'#a77043',
+                      fontWeight:'600',
+                      fontSize:isDesktop ? '20px' : '16px',
+                  }}
+              >
+                  {label}
+              </Typography>
+            <Box
             sx={{
-              '& fieldset':{
-                borderColor:'#a770439E'
-              },
-              '& .MuiInputBase-root:hover fieldset':{
-                borderColor:'#a770439E'
-              },
-              '& .Mui-focused fieldset':{
-                borderColor:'#a770439E !important'
-              },
-              "& input:-webkit-autofill": {
-                WebkitBoxShadow: "0 0 0 1000px #fff9f0 inset"
-              }
+                width:'20px',
+                height:'2px',
+                backgroundColor:'#a77043',
+                marginLeft:'5px'
             }}
-          />
-          :
-          <TextField
-            helperText=' '
-            required={input.required ? true : false}
-            color='themeColor'
-            multiline
-            key={index}
-            minRows={4}
-            maxRows={4}
-            name={fieldName}
-            label={input.label}
-            type={input.type}
-            value={inputForm[fieldName].value}
-            onChange={handlechangeform}
-            sx={{
-              textTransform:'capitalize',
-              gridColumnStart:'1',
-              gridColumnEnd:'3',
-              '& fieldset':{
-                borderColor:'#a770439E'
-              },
-              '& .MuiInputBase-root:hover fieldset':{
-                borderColor:'#a770439E'
-              },
-              '& .Mui-focused fieldset':{
-                borderColor:'#a770439E !important'
-              }
-            }}
-          />
-        )})}    
+        ></Box>
+        </Box>
         <Box
-          sx={{
-            width:'100%',
-            gridColumnStart:1,
-            gridColumnEnd:3,
-            display:isMobile ? 'block' : 'flex',
-            justifyContent:'space-between'
-          }}
+          noValidate
+          onSubmit={handleSubmit}
+          component="form"
+          sx={isMobile ? formMobile : formDesktop}
         >
-        <Button
-          type='submit'
-          disableRipple
-          size={isMobile ? 'medium' : 'large'}
-          sx={{
-            color:'#a770439E',
-            border:'1px solid #a770439E',
-            width:'40%',
-            textAlign:'end',
-            fontWeight:'600',
-            '&:hover':{
-              border:'1px solid #a77043',
-              color:'#a77043',
-              backgroundColor:'transparent'
-            }
-          }}
-        >
-          {submit?.label}
-        </Button>
-        {
-          alert.show &&
-          <Alert 
-          variant='outlined'
-          severity={alert.type}
-          sx={{
-            marginTop:isMobile ? '10px' : '0',
-            padding:'2px 16px'
-          }}
+          {form.map((input,index)=>{
+            const fieldName=input.label.toLowerCase();
+          return(
+            input.type !== 'textarea'
+            ?
+            <TextField
+              error={inputForm[fieldName].error}
+              helperText={inputForm[fieldName].error ? inputForm[fieldName].errorMessage : ' '}
+              onBlur={onBlurHandler}
+              required={input.required ? true : false}
+              color='themeColor'
+              key={index}
+              name={fieldName}
+              label={input.label}
+              type={input.type}
+              size={isMobile ? 'small' : 'medium'}
+              value={inputForm[fieldName].value}
+              onChange={handlechangeform}
+              sx={{
+                '& fieldset':{
+                  borderColor:'#a770439E'
+                },
+                '& .MuiInputBase-root:hover fieldset':{
+                  borderColor:'#a770439E'
+                },
+                '& .Mui-focused fieldset':{
+                  borderColor:'#a770439E !important'
+                },
+                "& input:-webkit-autofill": {
+                  WebkitBoxShadow: "0 0 0 1000px #fff9f0 inset"
+                }
+              }}
+            />
+            :
+            <TextField
+              helperText=' '
+              required={input.required ? true : false}
+              color='themeColor'
+              multiline
+              key={index}
+              minRows={4}
+              maxRows={4}
+              name={fieldName}
+              label={input.label}
+              type={input.type}
+              value={inputForm[fieldName].value}
+              onChange={handlechangeform}
+              sx={{
+                textTransform:'capitalize',
+                gridColumnStart:'1',
+                gridColumnEnd:'3',
+                '& fieldset':{
+                  borderColor:'#a770439E'
+                },
+                '& .MuiInputBase-root:hover fieldset':{
+                  borderColor:'#a770439E'
+                },
+                '& .Mui-focused fieldset':{
+                  borderColor:'#a770439E !important'
+                }
+              }}
+            />
+          )})}    
+          <Box
+            sx={{
+              width:'100%',
+              gridColumnStart:1,
+              gridColumnEnd:3,
+              display:isMobile ? 'block' : 'flex',
+              justifyContent:'space-between'
+            }}
           >
-          {alert.message}
-        </Alert>
-        }
+          <Button
+            type='submit'
+            disableRipple
+            size={isMobile ? 'medium' : 'large'}
+            sx={{
+              color:'#a770439E',
+              border:'1px solid #a770439E',
+              width:'40%',
+              textAlign:'end',
+              fontWeight:'600',
+              '&:hover':{
+                border:'1px solid #a77043',
+                color:'#a77043',
+                backgroundColor:'transparent'
+              }
+            }}
+          >
+            {submit?.label}
+          </Button>
+          {
+            alert.show &&
+            <Alert 
+            variant='outlined'
+            severity={alert.type}
+            sx={{
+              marginTop:isMobile ? '10px' : '0',
+              padding:'2px 16px'
+            }}
+            >
+            {alert.message}
+          </Alert>
+          }
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Fade>
   )
 }

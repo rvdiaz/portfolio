@@ -33,7 +33,7 @@ export const ThemeContextProvider=(props)=>{
 
         setTheme({
             ...theme,
-            perfilPicture:themeContext.data.data.attributes.theme.avatar.data.attributes.url,
+            perfilPicture:themeContext.data.data.attributes.theme.avatar.data.attributes,
             backgroundPage:themeContext.data.data.attributes.theme.backgroundPage.data.attributes.url,
             socialNetworks:socialNetworks.data.data.attributes.social_networks?.link,
             info:{

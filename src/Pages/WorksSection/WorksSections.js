@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Fade, Grid, Link, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Queries } from '../../config/Queries';
@@ -16,8 +16,7 @@ export const WorksSections = () => {
 
     const [loading, setloading] = useState(false);
 
-    useEffect(() => {
-        const fetchData=async()=>{
+    const fetchData=async()=>{
         setloading(true);
         const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
         {
@@ -31,10 +30,11 @@ export const WorksSections = () => {
                 portfolioContent:portfolioContent.data.data.attributes
               })
             setloading(false);
-        }, 500);
-        return () => clearTimeout(timer);
+        }, 200);
+        return ()=>clearTimeout(timer);
       }
 
+    useEffect(() => {
         fetchData();
     }, [])
 
@@ -42,6 +42,7 @@ export const WorksSections = () => {
     loading ?
     <WorkSkeleton/>
     :
+    <Fade in={!loading} timeout={1000}>
     <Box
         sx={{
             paddingBottom:'3vh'
@@ -132,6 +133,7 @@ export const WorksSections = () => {
                         <CardMedia
                             component='img'
                             image={website.image.data?.attributes.url}
+                            alt={website.image.data?.attributes.alternativeText}
                             sx={{
                                 width:'100%',
                                 height:'20vh',
@@ -161,5 +163,6 @@ export const WorksSections = () => {
             ))}
         </Grid>
     </Box>
+    </Fade>
   )
 }
