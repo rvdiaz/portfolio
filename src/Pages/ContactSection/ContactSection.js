@@ -21,7 +21,7 @@ export const ContactSection = () => {
   const {isDesktop,isMobile} = mediaQueries;
 
   const [alert, setalert] = useState({
-    show: false,
+    show: true,
     message:'',
     type:'success'
   })
@@ -310,7 +310,7 @@ export const ContactSection = () => {
             sx={{
               color:'#a770439E',
               border:'1px solid #a770439E',
-              width:'40%',
+              width:'auto',
               textAlign:'end',
               fontWeight:'600',
               '&:hover':{
