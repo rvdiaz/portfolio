@@ -3,8 +3,6 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Queries } from '../../../config/Queries'
 import { BioSection } from '../../../Pages/BioSection/BioSection'
-import { BlogSection } from '../../../Pages/BlogSection/BlogSection'
-import { BlogSingle } from '../../../Pages/BlogSingle/BlogSingle'
 import { ContactSection } from '../../../Pages/ContactSection/ContactSection'
 import { HomeSection } from '../../../Pages/HomeSection/HomeSection'
 import { ServiceSection } from '../../../Pages/ServiceSection.js/ServiceSection'
@@ -25,8 +23,6 @@ export const RightSide = () => {
             <Route path='/service' element={<ServiceSection/>}/>
             <Route path='/work' element={<WorksSections/>}/>
             <Route path='/contact' element={<ContactSection/>}/>
-            <Route path='/blog' element={<BlogSection/>}/>
-            <Route path='/blog/:id' element={<BlogSingle/>}/>
         </Routes>
     </Box>
   )

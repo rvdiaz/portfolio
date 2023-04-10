@@ -43,7 +43,7 @@ export const ContactSection = () => {
    }, 200);
 
    return ()=>clearTimeout(timer);
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -81,7 +81,7 @@ export const ContactSection = () => {
     e.preventDefault();
     if(handleFormError()){
         const res=await SendForm(inputForm);
-        if(res?.status!=200){
+        if(res?.status!==200){
           setalert({
             show:true,
             message:"Error connecting to the server",
