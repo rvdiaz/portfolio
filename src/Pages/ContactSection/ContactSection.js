@@ -21,7 +21,7 @@ export const ContactSection = () => {
   const {isDesktop,isMobile} = mediaQueries;
 
   const [alert, setalert] = useState({
-    show: true,
+    show: false,
     message:'',
     type:'success'
   })
