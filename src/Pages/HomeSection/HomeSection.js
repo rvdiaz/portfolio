@@ -1,8 +1,7 @@
 import { Box, Button, Fade, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { useCallback } from 'react';
+import React, { useContext, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
@@ -14,8 +13,6 @@ export const HomeSection = () => {
    const {contentHome,handleChange} = useContext(HomeContext);
    const {info}=useContext(ThemeContext);
    const {primaryColor}=info;
-
-   const [loading, setloading] = useState(true);
 
    const {homeContent}=contentHome;
    const {content,image,resume}=homeContent;

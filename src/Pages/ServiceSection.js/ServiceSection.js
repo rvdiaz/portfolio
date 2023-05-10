@@ -1,4 +1,5 @@
 import { Box, Fade, Grid, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import React, { useContext } from 'react'
@@ -17,36 +18,34 @@ export const ServiceSection = () => {
 
     const {mediaQueries}=Queries();
     const {isDesktop,isMobile}=mediaQueries;
-    
-    const [loading, setloading] = useState(false);
 
     const fetchData=async()=>{
-        setloading(true);
-        const serviceContent=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
+        const {data}=await axios(process.env.REACT_APP_API + '/api/service?populate[services][populate]populate=*',
         {
           headers: {
               Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
             },
           }
         );
-      const timer=setTimeout(() => {
-        handleChange({
-            serviceContent:serviceContent.data.data.attributes
-            })
-        setloading(false);
-      }, 200);
-      return ()=>clearTimeout(timer);
+        return data;
       }
+      const {data,error,isError,isLoading}=useQuery(['services'],fetchData,{
+        onSuccess:(data)=>{
+            handleChange({
+                serviceContent:data.data.attributes
+            })
+        }
+      })
 
     useEffect(() => {
         fetchData();
-      }, [])
+      }, [data])
 
   return (
-    loading ?
+    isLoading ?
     <ServiceSkeleton/>
     :
-    <Fade in={!loading} timeout={600}>
+    <Fade in={!isLoading} timeout={600}>
         <Box
                 sx={{
                     textAlign:'center',
