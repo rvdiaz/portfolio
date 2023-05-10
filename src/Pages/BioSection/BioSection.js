@@ -26,7 +26,6 @@ export const BioSection = () => {
               Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
             },
           });
-          console.log(data);
         return data; 
       }  
 

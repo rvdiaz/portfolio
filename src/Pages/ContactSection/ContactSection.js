@@ -1,4 +1,5 @@
 import { Alert, Box, Button, Fade, TextField, Typography } from '@mui/material'
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
@@ -14,8 +15,6 @@ export const ContactSection = () => {
   const {contactContent}=content;
   const {title,label,submit}=contactContent;
   const form = contactContent.form ? contactContent.form : [];
-  
-  const [loading, setloading] = useState(false);
 
   const {mediaQueries}=Queries();
   const {isDesktop,isMobile} = mediaQueries;
@@ -27,27 +26,27 @@ export const ContactSection = () => {
   })
 
   const fetchData=async()=>{
-    setloading(true);
-    const contactContent=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
+    const {data}=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
     {
       headers: {
           Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
         },
       }
     );
-   const timer=setTimeout(() => {
-    handleChange({
-      contactContent:contactContent.data.data.attributes
-    });
-    setloading(false);
-   }, 200);
-
-   return ()=>clearTimeout(timer);
+    return data;
   };
+
+  const {data,error,isError,isLoading}=useQuery(['contact'],fetchData,{
+    onSuccess:(data)=>{
+      handleChange({
+        contactContent:data.data.attributes
+      });
+    }
+  })
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, [data])
 
   const [inputForm, setinputForm] = useState({
     name:{
@@ -172,10 +171,10 @@ export const ContactSection = () => {
     }
   }
   return (
-    loading ?
+    isLoading ?
       <ContactSkeleton/>
     :
-    <Fade in={!loading} timeout={1000}>
+    <Fade in={!isLoading} timeout={1000}>
       <Box>
         <Typography
               variant='h3'
