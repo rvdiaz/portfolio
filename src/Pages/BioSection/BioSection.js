@@ -1,7 +1,7 @@
 import { Box, Fade, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import { Queries } from '../../config/Queries';
 import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
@@ -15,39 +15,38 @@ export const BioSection = () => {
     const {title,label}=biographyContent;
     const content=biographyContent.content ? biographyContent.content : [];
 
-    const [loading, setloading] = useState(false);
-
     const {mediaQueries}=Queries();
     const {isDesktop}= mediaQueries;
     
     const fetchData=async()=>{
-        setloading(true);
-        const biographyContent=await axios(
+        const {data}=await axios(
           process.env.REACT_APP_API + '/api/biography?[populate][content][populate]populate=*',
           {
           headers: {
               Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
             },
           });
-          const timer=setTimeout(() => {
-            handleChange({
-                biographyContent:biographyContent.data.data.attributes 
-                })
-             setloading(false);    
-          }, 200);
-
-        return ()=>clearTimeout(timer);
+          console.log(data);
+        return data; 
       }  
 
+    const {data,error,isError,isLoading}=useQuery(['biosection'],fetchData,{
+        onSuccess:(data)=>{
+            handleChange({
+                biographyContent:data.data.attributes 
+            })
+        }
+    });
+    
     useEffect(() => {
         fetchData();
-      }, [])
+      },[data])
 
     return (
-        loading ?
+        isLoading ?
         <BioSkeleton/> 
         :
-        <Fade in={!loading} timeout={1000}>
+        <Fade in={!isLoading} timeout={1000}>
             <Box
             sx={{
                 paddingBottom:'3vh'

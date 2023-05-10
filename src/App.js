@@ -7,12 +7,15 @@ import { BackgroundComponent } from './Components/Basic/BackgroundComponent/Back
 import { RightSide } from './Components/Global/RightSide/RightSide';
 import { Queries } from './config/Queries';
 import { Footer } from './Components/Global/Footer/Footer';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 function App() {
   const {backgroundPage}=useContext(ThemeContext);
   
   const {mediaQueries,theme}=Queries();
   const {isTablet,isMobile,isDesktop}=mediaQueries;
+
+  const queryClient = new QueryClient();
 
   const mobileLeftSideContainer={
     height: 'auto',
@@ -51,65 +54,66 @@ function App() {
     width: isDesktop ? '1000px': '100%'
   }
   return (
-    <ThemeProvider theme={theme}>
-      <BackgroundComponent
-        src={!isMobile ? backgroundPage : ''}
-        styles={{
-          height:!isMobile && '100vh',
-          minHeight:'100vh',
-          backgroundRepeat:'no-repeat',
-          backgroundSize:'cover',
-          backgroundPosition: "center",
-          display:'flex',
-          alignItems:'center',
-          padding:{
-            lg:'0 1vw',
-            xl:'0 5vw'
-          },
-          flexDirection:isMobile && 'column',
-          backgroundColor:isMobile && '#fff9f0'
-      }}
-      >
-        <Box 
-            sx={{
-            margin:isTablet ? '0 5vw' : '0 auto',
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <BackgroundComponent
+          src={!isMobile ? backgroundPage : ''}
+          styles={{
+            height:!isMobile && '100vh',
+            minHeight:'100vh',
+            backgroundRepeat:'no-repeat',
+            backgroundSize:'cover',
+            backgroundPosition: "center",
             display:'flex',
-            flexDirection:isDesktop ? 'row' : 'column',
             alignItems:'center',
-            justifyContent:'center',
-            backgroundColor:'#fff9f0',
-            height:isMobile ?'100%':'85vh',
-            width:isDesktop ? '1200px' : '100%',
-            borderRadius:!isMobile && '5px',
-            boxShadow:!isMobile && '5px 10px 10px 11px rgb(0 0 0 / 20%)'
+            padding:{
+              lg:'0 1vw',
+              xl:'0 5vw'
+            },
+            flexDirection:isMobile && 'column',
+            backgroundColor:isMobile && '#fff9f0'
+        }}
+        >
+          <Box 
+              sx={{
+              margin:isTablet ? '0 5vw' : '0 auto',
+              display:'flex',
+              flexDirection:isDesktop ? 'row' : 'column',
+              alignItems:'center',
+              justifyContent:'center',
+              backgroundColor:'#fff9f0',
+              height:isMobile ?'100%':'85vh',
+              width:isDesktop ? '1200px' : '100%',
+              borderRadius:!isMobile && '5px',
+              boxShadow:!isMobile && '5px 10px 10px 11px rgb(0 0 0 / 20%)'
+              }}
+            >
+              <Box 
+                sx={isDesktop ? desktopLeftSideContainer : mobileLeftSideContainer}
+                >
+                <LeftSide/>
+              </Box>
+              <Box 
+                sx={isMobile ? mobileRightSide : desktopRightSide}
+                >
+                <RightSide/> 
+              </Box>
+          </Box>
+          <Footer
+            sx={{
+              backgroundColor:isMobile && '#fff9f0',
+              position:isMobile ? 'initial' :'absolute',
+              width:isDesktop ? '90%' : '100%',
+              bottom:'10px',
+              textAlign:'center',
+              padding:isMobile && '20px 20px',
+              borderTop:isMobile && '1px solid #a770439E',
+              marginTop:'auto'
             }}
-          >
-            <Box 
-              sx={isDesktop ? desktopLeftSideContainer : mobileLeftSideContainer}
-              >
-              <LeftSide/>
-            </Box>
-            <Box 
-              sx={isMobile ? mobileRightSide : desktopRightSide}
-              >
-              <RightSide/> 
-            </Box>
-        </Box>
-        <Footer
-          sx={{
-            backgroundColor:isMobile && '#fff9f0',
-            position:isMobile ? 'initial' :'absolute',
-            width:isDesktop ? '90%' : '100%',
-            bottom:'10px',
-            textAlign:'center',
-            padding:isMobile && '20px 20px',
-            borderTop:isMobile && '1px solid #a770439E',
-            marginTop:'auto'
-          }}
-        />
-      </BackgroundComponent>
-    </ThemeProvider>
-    
+          />
+        </BackgroundComponent>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
