@@ -1,4 +1,5 @@
 import { Box, Button, Fade, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useCallback } from 'react';
@@ -25,7 +26,6 @@ export const HomeSection = () => {
    const {isMobile,isDesktop,isTablet}=mediaQueries;
    
    const fetchData=async()=>{
-    setloading(true);
     const homeContent=await axios(process.env.REACT_APP_API + '/api/home?[populate][personal][populate]populate=*',
     {
         headers: {
@@ -47,21 +47,26 @@ export const HomeSection = () => {
           },
         }
     );
-    const timer=setTimeout(() => {
-        handleChange({
-            homeContent:{
-                content:homeContent.data.data.attributes,
-                image:homeContentImage.data.data.attributes.image,
-                resume:resumeContent.data.data.attributes.resume
-        }})
-        setloading(false);
-    }, 200);
-
-    return ()=>clearTimeout(timer);
+    return {
+        homeContent,
+        homeContentImage,
+        resumeContent
+    }
 }
+    const {data,error,isError,isLoading}=useQuery(['home'],fetchData,{
+        onSuccess:(data)=>{
+            handleChange({
+                homeContent:{
+                    content:data.homeContent.data.data.attributes,
+                    image:data.homeContentImage.data.data.attributes.image,
+                    resume:data.resumeContent.data.data.attributes.resume
+            }})
+        }
+    })
+
    useEffect(() => {   
     fetchData();
-}, [])
+}, [data])
 
     const imageSize=()=>{
         switch (true) {
@@ -74,10 +79,10 @@ export const HomeSection = () => {
         }
     }
   return (
-    loading ?
+    isLoading ?
     <HomeSkeleton />
     :
-    <Fade in={!loading} timeout={1000}>
+    <Fade in={!isLoading} timeout={1000}>
         <Box
             sx={{
                 display:'flex',
