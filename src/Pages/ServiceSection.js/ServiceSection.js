@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import React, { useContext } from 'react'
-import { useState } from 'react';
 import { useEffect } from 'react';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';

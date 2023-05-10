@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Fade, Grid, Link, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
 import { WorkSkeleton } from './WorkSkeleton';
@@ -14,35 +15,34 @@ export const WorksSections = () => {
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
 
-    const [loading, setloading] = useState(false);
-
     const fetchData=async()=>{
-        setloading(true);
-        const portfolioContent= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
+        const {data}= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
               },
             }
         );
-        const timer=setTimeout(() => {
-            handleChange({
-                portfolioContent:portfolioContent.data.data.attributes
-              })
-            setloading(false);
-        }, 200);
-        return ()=>clearTimeout(timer);
+        return data;
       }
+
+    const {data,error,isError,isLoading}=useQuery(['work'],fetchData,{
+        onSuccess:(data)=>{
+            handleChange({
+                portfolioContent:data.data.attributes
+            }) 
+        }
+    })
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [data])
 
   return (
-    loading ?
+    isLoading ?
     <WorkSkeleton/>
     :
-    <Fade in={!loading} timeout={1000}>
+    <Fade in={!isLoading} timeout={1000}>
     <Box
         sx={{
             paddingBottom:'3vh'
