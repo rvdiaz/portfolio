@@ -9,11 +9,13 @@ export const MainMenu = () => {
   const {pages} =useContext(MenuContext);
 
   const {pathname}=useLocation();
-  
   const [active, setactive] = useState(pathname);
-
+  
   useEffect(() => {
-    setactive(pathname);
+    let aux=pathname;
+    if(pathname.includes('%20'))
+      aux=pathname.replace('%20',' ');
+    setactive(aux);
   }, [pathname])
   
   const {mediaQueries}=Queries();
