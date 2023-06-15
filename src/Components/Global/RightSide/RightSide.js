@@ -21,7 +21,7 @@ export const RightSide = () => {
             <Route path='*' element={<HomeSection/>}/>
             <Route path='/biography' element={<BioSection/>}/>
             <Route path='/service' element={<ServiceSection/>}/>
-            <Route path='/some works' element={<WorksSections/>}/>
+            <Route path='/works' element={<WorksSections/>}/>
             <Route path='/contact' element={<ContactSection/>}/>
         </Routes>
     </Box>
