@@ -109,7 +109,9 @@ export const WorksSections = () => {
                 >
                 <Box
                 sx={{
-                    borderBottom:'3px solid #a77043'
+                    borderBottom:'3px solid #a77043',
+                    display:'flex',
+                    justifyContent:'end'
                 }}
                 >
                     <Typography
