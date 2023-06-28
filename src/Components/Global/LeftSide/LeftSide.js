@@ -28,18 +28,6 @@ export const LeftSide = () => {
     >
         <Perfil/>
         <MainMenu/>
-        {/* {isDesktop && 
-          <Footer
-            sx={{
-              marginTop:'10px',
-              textAlign:'center',
-              position:'absolute',
-              bottom:'0',
-              left:'0',
-              width:'100%',
-              padding:'5px'
-            }}
-          />} */}
       </Box>
   )
 }
