@@ -60,7 +60,7 @@ export const HomeSection = () => {
             }})
         }
     })
-
+    console.log(error);
    useEffect(() => {   
     fetchData();
 }, [data])

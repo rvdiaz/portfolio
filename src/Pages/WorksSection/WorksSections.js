@@ -10,11 +10,12 @@ export const WorksSections = () => {
     const {content,handleChange}=useContext(PortfolioContext);
     const {portfolioContent}=content;
     const {label,title}=portfolioContent;
+    
     const websites=portfolioContent?.websites ? portfolioContent?.websites : [];
-   
+    
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
-
+    
     const fetchData=async()=>{
         const {data}= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
         {
@@ -25,7 +26,7 @@ export const WorksSections = () => {
         );
         return data;
       }
-
+     
     const {data,error,isError,isLoading}=useQuery(['work'],fetchData,{
         onSuccess:(data)=>{
             handleChange({
@@ -33,7 +34,7 @@ export const WorksSections = () => {
             }) 
         }
     })
-
+   
     useEffect(() => {
         fetchData();
     }, [data])
