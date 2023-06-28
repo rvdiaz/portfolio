@@ -11,13 +11,13 @@ export const WorksSections = () => {
     const {portfolioContent}=content;
     const {label,title}=portfolioContent;
     
-    const websites=portfolioContent?.websites ? portfolioContent?.websites : [];
+    const web=portfolioContent?.web ? portfolioContent?.web : [];
     
     const {mediaQueries}=Queries();
     const {isDesktop}=mediaQueries;
     
     const fetchData=async()=>{
-        const {data}= await axios(process.env.REACT_APP_API + '/api/portfolio?[populate][websites][populate]populate=*',
+        const {data}= await axios(process.env.REACT_APP_API + '/api/portfolio?populate[web][populate][websites][populate]populate=*',
         {
             headers: {
                 Authorization:`Bearer ${process.env.REACT_APP_API_TOKEN}`
@@ -98,17 +98,48 @@ export const WorksSections = () => {
             >
             </Box>
         </Box>
-        <Grid
-            container
-            spacing={3}
-            sx={{
-                justifyContent:'center',
-                marginTop:'1vh'
-            }}
-        >
-            {websites.map((website,index)=>(   
+            {web.map((item)=>
+                {
+                return (
+                <Box 
+                key={item.id}
+                sx={{
+                    marginTop:'4vh'
+                }}
+                >
+                <Box
+                sx={{
+                    borderBottom:'3px solid #a77043'
+                }}
+                >
+                    <Typography
+                    sx={{
+                        color:'white',
+                        borderRadius:'0px',
+                        padding:'5px 15px',
+                        fontSize:'20px',
+                        fontWeight:'500',
+                        backgroundColor:'#a77043',
+                        height:'fit-content',
+                        width:'fit-content'
+                    }}
+                    >
+                    {item.title}
+                    </Typography>  
+                </Box> 
                 <Grid
-                    key={index}
+                    container
+                    spacing={3}
+                    sx={{
+                        justifyContent:'center',
+                        marginTop:'10px'
+                    }}
+                    key={item.id}>
+                    
+                    {
+                    item.websites.map((website)=>(
+                    <Grid
+                    key={website.id}
                     item
                     md={5}
                     sm={6}
@@ -160,9 +191,13 @@ export const WorksSections = () => {
                         </CardContent>
                         </Link>
                     </Card>
-                </Grid>
-            ))}
-        </Grid>
+                    </Grid>
+                    ))
+                    } 
+                    </Grid>
+                    </Box>
+                )})}
+       
     </Box>
     </Fade>
   )
