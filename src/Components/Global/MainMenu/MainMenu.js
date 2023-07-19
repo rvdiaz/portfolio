@@ -74,7 +74,9 @@ export const MainMenu = () => {
                     width:isDesktop ?'25px' : '20px',
                     marginRight:isDesktop ? '10px' : '0'
                   }}
-                  src={icon.attributes.url}/>
+                  src={icon.attributes.url}
+                  alt={icon.attributes.alternativeText}
+                  />
                   }
                     {page.label}                  
                 </Button>

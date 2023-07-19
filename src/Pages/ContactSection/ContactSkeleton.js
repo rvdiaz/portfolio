@@ -6,7 +6,8 @@ import { Queries } from '../../config/Queries'
 
 export const ContactSkeleton = () => {
     const {mediaQueries}=Queries();
-    const {isMobile}=mediaQueries;
+    const {isMobile} = mediaQueries;
+  
   return (
     <Box
     sx={{
