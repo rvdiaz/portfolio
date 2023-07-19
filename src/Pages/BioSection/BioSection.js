@@ -7,7 +7,6 @@ import { Queries } from '../../config/Queries';
 import { BiographyContext } from '../../Context/PagesContext/BiographyContext';
 import { BioDesktopContent } from './BioDesktopContent';
 import { BioMobileContent } from './BioMobileContent';
-import { BioSkeleton } from './BioSkeleton';
 
 export const BioSection = () => {
     const {contentBio,handleChange} = useContext(BiographyContext);
@@ -29,7 +28,7 @@ export const BioSection = () => {
         return data; 
       }  
 
-    const {data,error,isError,isLoading}=useQuery(['biosection'],fetchData,{
+    const {data,error,isLoading}=useQuery(['biosection'],fetchData,{
         onSuccess:(data)=>{
             handleChange({
                 biographyContent:data.data.attributes 
@@ -41,10 +40,11 @@ export const BioSection = () => {
         fetchData();
       },[data])
 
+      if(error || isLoading){
+        return (<></>);
+    }
+
     return (
-        isLoading ?
-        <BioSkeleton/> 
-        :
         <Fade in={!isLoading} timeout={1000}>
             <Box
             sx={{

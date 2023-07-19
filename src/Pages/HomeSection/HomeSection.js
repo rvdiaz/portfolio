@@ -7,7 +7,6 @@ import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { HomeContext } from '../../Context/PagesContext/HomeContext'
 import { ThemeContext } from '../../Context/ThemeContext';
-import { HomeSkeleton } from './HomeSkeleton';
 
 export const HomeSection = () => {
    const {contentHome,handleChange} = useContext(HomeContext);
@@ -50,7 +49,7 @@ export const HomeSection = () => {
         resumeContent
     }
 }
-    const {data,error,isError,isLoading}=useQuery(['home'],fetchData,{
+    const {data,error,isLoading}=useQuery(['home'],fetchData,{
         onSuccess:(data)=>{
             handleChange({
                 homeContent:{
@@ -60,7 +59,7 @@ export const HomeSection = () => {
             }})
         }
     })
-    console.log(error);
+    
    useEffect(() => {   
     fetchData();
 }, [data])
@@ -75,10 +74,12 @@ export const HomeSection = () => {
                 return '90%';
         }
     }
+
+if(error || isLoading){
+    return (<></>);
+}
+
   return (
-    isLoading ?
-    <HomeSkeleton />
-    :
     <Fade in={!isLoading} timeout={1000}>
         <Box
             sx={{

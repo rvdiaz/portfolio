@@ -4,7 +4,6 @@ import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
 import { Queries } from '../../config/Queries';
 import { PortfolioContext } from '../../Context/PagesContext/PortfolioContext';
-import { WorkSkeleton } from './WorkSkeleton';
 
 export const WorksSections = () => {
     const {content,handleChange}=useContext(PortfolioContext);
@@ -27,7 +26,7 @@ export const WorksSections = () => {
         return data;
       }
      
-    const {data,error,isError,isLoading}=useQuery(['work'],fetchData,{
+    const {data,error,isLoading}=useQuery(['work'],fetchData,{
         onSuccess:(data)=>{
             handleChange({
                 portfolioContent:data.data.attributes
@@ -39,10 +38,11 @@ export const WorksSections = () => {
         fetchData();
     }, [data])
 
+if(error || isLoading){
+    return (<></>);
+}
+
   return (
-    isLoading ?
-    <WorkSkeleton/>
-    :
     <Fade in={!isLoading} timeout={1000}>
     <Box
         sx={{

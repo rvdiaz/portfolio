@@ -8,7 +8,6 @@ import { Queries } from '../../config/Queries';
 import { ContactContext } from '../../Context/PagesContext/ContactContext';
 import { SendForm } from '../../Helpers/SendForm';
 import { validateForm } from '../../Helpers/ValidationForm';
-import { ContactSkeleton } from './ContactSkeleton';
 
 export const ContactSection = () => {
   const {content,handleChange}= useContext(ContactContext);
@@ -25,6 +24,20 @@ export const ContactSection = () => {
     type:'success'
   })
 
+  useEffect(() => {
+    const time=setTimeout(() => {
+      setalert({
+        show:false,
+        message:'',
+        type:''
+      })
+    }, 4000);
+
+    return () => {
+      clearTimeout(time);
+    }
+  }, [alert,setalert])
+
   const fetchData=async()=>{
     const {data}=await axios(process.env.REACT_APP_API + '/api/contact?populate=*',
     {
@@ -36,7 +49,7 @@ export const ContactSection = () => {
     return data;
   };
 
-  const {data,error,isError,isLoading}=useQuery(['contact'],fetchData,{
+  const {data,error,isLoading}=useQuery(['contact'],fetchData,{
     onSuccess:(data)=>{
       handleChange({
         contactContent:data.data.attributes
@@ -93,14 +106,6 @@ export const ContactSection = () => {
           type:'success'
         })
         handleResetFields();
-
-      setTimeout(() => {
-        setalert({
-          show:false,
-          message:'',
-          type:''
-        })
-      }, 4000);
   }
 }
 
@@ -170,10 +175,12 @@ export const ContactSection = () => {
       borderColor:'#a770439E !important'
     }
   }
+
+  if(error || isLoading){
+    return (<></>);
+}
+
   return (
-    isLoading ?
-      <ContactSkeleton/>
-    :
     <Fade in={!isLoading} timeout={1000}>
       <Box>
         <Typography

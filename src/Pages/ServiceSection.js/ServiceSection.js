@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { Image } from '../../Components/Basic/Image/Image';
 import { Queries } from '../../config/Queries';
 import { ServiceContext } from '../../Context/PagesContext/ServiceContext';
-import { ServiceSkeleton } from './ServiceSkeleton';
 
 export const ServiceSection = () => {
     const {content,handleChange}=useContext(ServiceContext);
@@ -28,7 +27,7 @@ export const ServiceSection = () => {
         );
         return data;
       }
-      const {data,error,isError,isLoading}=useQuery(['services'],fetchData,{
+      const {data,error,isLoading}=useQuery(['services'],fetchData,{
         onSuccess:(data)=>{
             handleChange({
                 serviceContent:data.data.attributes
@@ -40,10 +39,11 @@ export const ServiceSection = () => {
         fetchData();
       }, [data])
 
+if(error || isLoading){
+    return (<></>);
+}
+
   return (
-    isLoading ?
-    <ServiceSkeleton/>
-    :
     <Fade in={!isLoading} timeout={600}>
         <Box
                 sx={{
