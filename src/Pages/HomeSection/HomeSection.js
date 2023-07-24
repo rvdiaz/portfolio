@@ -75,7 +75,7 @@ export const HomeSection = () => {
         }
     }
 
-if(error || isLoading){
+if(error){
     return (<>
         <Box sx={{
             display:'flex',
