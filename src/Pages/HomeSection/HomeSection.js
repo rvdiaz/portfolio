@@ -76,7 +76,19 @@ export const HomeSection = () => {
     }
 
 if(error || isLoading){
-    return (<></>);
+    return (<>
+        <Box sx={{
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center'
+        }}>
+            <Typography
+                variant='h5'
+            >
+                Under Maintenance
+            </Typography>
+        </Box>
+    </>);
 }
 
   return (
