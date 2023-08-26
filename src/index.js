@@ -26,7 +26,7 @@ root.render(
                 <ContactContextProvider>
                   <BlogContextProvider>
                     <BrowserRouter>
-                      <App />
+                      <App/>
                     </BrowserRouter>
                   </BlogContextProvider>
                 </ContactContextProvider>
