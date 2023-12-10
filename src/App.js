@@ -9,7 +9,9 @@ import { Queries } from './config/Queries';
 import { Footer } from './Components/Global/Footer/Footer';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
+
 function App() {
+
   const {backgroundPage}=useContext(ThemeContext);
   
   const {mediaQueries,theme}=Queries();
