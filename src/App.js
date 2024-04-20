@@ -8,6 +8,7 @@ import { RightSide } from './Components/Global/RightSide/RightSide';
 import { Queries } from './config/Queries';
 import { Footer } from './Components/Global/Footer/Footer';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { UnderConstruction } from './Components/Basic/UnderConstruction/UnderConstruction';
 
 
 function App() {
@@ -90,7 +91,7 @@ function App() {
               boxShadow:!isMobile && '5px 10px 10px 11px rgb(0 0 0 / 20%)'
               }}
             >
-              <Box 
+              {/* <Box 
                 sx={isDesktop ? desktopLeftSideContainer : mobileLeftSideContainer}
                 >
                 <LeftSide/>
@@ -99,7 +100,8 @@ function App() {
                 sx={isMobile ? mobileRightSide : desktopRightSide}
                 >
                 <RightSide/> 
-              </Box>
+              </Box> */}
+              <UnderConstruction/>
           </Box>
           <Footer
             sx={{

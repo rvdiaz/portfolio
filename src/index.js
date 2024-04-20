@@ -13,7 +13,6 @@ import { ServiceContextProvider } from './Context/PagesContext/ServiceContext';
 import { PortfolioContextProvider } from './Context/PagesContext/PortfolioContext';
 import { ContactContextProvider } from './Context/PagesContext/ContactContext';
 import { BlogContextProvider } from './Context/PagesContext/BlogContext';
-import { UnderConstruction } from './Components/Basic/UnderConstruction/UnderConstruction';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
