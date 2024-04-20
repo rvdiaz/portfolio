@@ -91,7 +91,7 @@ function App() {
               boxShadow:!isMobile && '5px 10px 10px 11px rgb(0 0 0 / 20%)'
               }}
             >
-              {/* <Box 
+              <Box 
                 sx={isDesktop ? desktopLeftSideContainer : mobileLeftSideContainer}
                 >
                 <LeftSide/>
@@ -100,8 +100,7 @@ function App() {
                 sx={isMobile ? mobileRightSide : desktopRightSide}
                 >
                 <RightSide/> 
-              </Box> */}
-              <UnderConstruction/>
+              </Box>
           </Box>
           <Footer
             sx={{
