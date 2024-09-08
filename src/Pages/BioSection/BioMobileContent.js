@@ -1,4 +1,4 @@
-/* import { Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react'
 import ReactMarkdown from 'react-markdown';
 
@@ -39,7 +39,7 @@ export const BioMobileContent = (props) => {
                 fontWeight:'600',
             }}
             >
-                {step.title}
+                {step.place}
             </Typography>   
         </Box>
         <Box
@@ -67,4 +67,3 @@ export const BioMobileContent = (props) => {
     </Box>
   )
 }
- */
