@@ -9,22 +9,26 @@ export const DataContextProvider = (props) => {
     error: "",
     menus: [
       {
-        iconUrl: "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_biography_189ba21e0b.png",
+        iconUrl:
+          "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_biography_189ba21e0b.png",
         label: "Biography",
         alt: "Robe Valdes biography",
       },
       {
-        iconUrl: "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_services_645af13e98.png",
+        iconUrl:
+          "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_services_645af13e98.png",
         label: "Service",
         alt: "Robe Valdes biography",
       },
       {
-        iconUrl: "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_works_1f286f4a52.png",
+        iconUrl:
+          "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_works_1f286f4a52.png",
         label: "Works",
         alt: "Robe Valdes biography",
       },
       {
-        iconUrl: "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_contact_882eef555d.png",
+        iconUrl:
+          "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_contact_882eef555d.png",
         label: "Contact",
         alt: "Robe Valdes biography",
       },
@@ -164,6 +168,8 @@ export const DataContextProvider = (props) => {
             {
               title: "Real Time Commissions",
               link: "https://apps.apple.com/us/app/real-time-commissions-rtc/id6474559281",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/rtc_094f6142cb.jpg",
               type: "externalLink",
             },
             {
@@ -193,31 +199,43 @@ export const DataContextProvider = (props) => {
           workItems: [
             {
               title: "React Reusable Components",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_02_at_1_46_32_PM_811b222498.png",
               link: "https://psy-prod.airtrfx.com/vacations/en/",
               type: "externalLink",
             },
             {
               title: "The movie DB",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_06_27_at_5_53_49_PM_636e48de93.png",
               link: "https://rvdiaz.github.io/web-tmd-movie/",
               type: "externalLink",
             },
             {
               title: "Snapshot",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_06_27_at_5_55_12_PM_c483053589.png",
               link: "https://rvdiaz.github.io/web-snapshot/",
               type: "externalLink",
             },
             {
               title: "Todo App",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_06_27_at_5_55_53_PM_6d6630e1ff.png",
               link: "https://rvdiaz.github.io/web-todo-app/",
               type: "externalLink",
             },
             {
               title: "Calculator App",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_06_27_at_5_56_35_PM_a50a168a14.png",
               link: "https://rvdiaz.github.io/web-calculator-app/",
               type: "externalLink",
             },
             {
               title: "Trello Board",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_06_29_at_9_59_44_PM_c9b519c35d.png",
               link: "https://rvdiaz.github.io/web-trello-board/",
               type: "externalLink",
             },
@@ -228,6 +246,8 @@ export const DataContextProvider = (props) => {
           workItems: [
             {
               title: "Luca + Danni",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_05_21_at_4_20_49_PM_9f7a285c16.png",
               link: "https://lucadanni.com/",
               type: "externalLink",
             },
@@ -238,26 +258,36 @@ export const DataContextProvider = (props) => {
           workItems: [
             {
               title: "Sporcks Store",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_02_at_1_34_42_PM_3833088c0c.png",
               link: "https://sporcks.com/es-am",
               type: "externalLink",
             },
             {
               title: "Willier CR",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_02_at_1_44_41_PM_079c1d9ba5.png",
               link: "https://www.wiliercr.com/",
               type: "externalLink",
             },
             {
               title: "Quorania",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_02_at_1_56_21_PM_bc011daf68.png",
               link: "https://jardinsdecanmatas.quorania.com/ubicacion-y-entorno/",
               type: "externalLink",
             },
             {
               title: "River Spencer",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_03_at_10_43_49_AM_dfd7b36872.png",
               link: "https://www.riversspencer.com/",
               type: "externalLink",
             },
             {
               title: "Coches Store",
+              image:
+                "https://rvdiaz-images.s3.amazonaws.com/Screenshot_2023_03_03_at_10_48_34_AM_8ab691d0b8.png",
               link: "https://www.m-ocasion.com/",
               type: "externalLink",
             },
