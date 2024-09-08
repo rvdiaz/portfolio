@@ -15,7 +15,7 @@ export const DataContextProvider = (props) => {
       },
       {
         iconUrl: "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_services_645af13e98.png",
-        label: "Services",
+        label: "Service",
         alt: "Robe Valdes biography",
       },
       {

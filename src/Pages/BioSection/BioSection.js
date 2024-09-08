@@ -9,7 +9,7 @@ import { BioMobileContent } from "./BioMobileContent";
 import { DataContext } from "../../Context/DataContext";
 
 export const BioSection = () => {
-  const { dataPages } = useContext(DataContext);
+  const { dataPages,error,loading } = useContext(DataContext);
   const { experience } = dataPages;
 
   const { mediaQueries } = Queries();
