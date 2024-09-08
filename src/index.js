@@ -1,41 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { MenuContextProvider } from './Context/MenuContext';
-import { ThemeContextProvider } from './Context/ThemeContext';
-import { HomeContextProvider } from './Context/PagesContext/HomeContext';
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import { BrowserRouter } from 'react-router-dom';
-import { BiographyContentProvider } from './Context/PagesContext/BiographyContext';
-import { ServiceContextProvider } from './Context/PagesContext/ServiceContext';
-import { PortfolioContextProvider } from './Context/PagesContext/PortfolioContext';
-import { ContactContextProvider } from './Context/PagesContext/ContactContext';
-import { BlogContextProvider } from './Context/PagesContext/BlogContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import { BrowserRouter } from "react-router-dom";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeContextProvider>
-      <MenuContextProvider>
-        <HomeContextProvider>
-          <BiographyContentProvider>
-            <ServiceContextProvider>
-              <PortfolioContextProvider>
-                <ContactContextProvider>
-                  <BlogContextProvider>
-                    <BrowserRouter>
-                      <App/>
-                    </BrowserRouter>
-                  </BlogContextProvider>
-                </ContactContextProvider>
-              </PortfolioContextProvider>
-            </ServiceContextProvider>
-          </BiographyContentProvider>
-        </HomeContextProvider>
-      </MenuContextProvider>
-    </ThemeContextProvider>
+    <DataContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+    </DataContextProvider>
   </React.StrictMode>
 );
 
