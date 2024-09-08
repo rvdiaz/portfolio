@@ -1,4 +1,4 @@
-import { Box, Skeleton } from '@mui/material'
+/* import { Box, Skeleton } from '@mui/material'
 import React from 'react'
 import { ListSkeleton } from '../../Components/Basic/ListSkeleton/ListSkeleton'
 import { Queries } from '../../config/Queries';
@@ -84,3 +84,4 @@ export const WorkSkeleton = () => {
     </Box>
   )
 }
+ */

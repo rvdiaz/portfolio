@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { BrowserRouter } from "react-router-dom";
+import { DataContextProvider } from "./Context/DataContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

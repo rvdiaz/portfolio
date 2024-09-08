@@ -1,4 +1,4 @@
-import { Box, Fade, Typography } from '@mui/material';
+/* import { Box, Fade, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +9,6 @@ import { BioDesktopContent } from './BioDesktopContent';
 import { BioMobileContent } from './BioMobileContent';
 
 export const BioSection = () => {
-    const {contentBio,handleChange} = useContext(BiographyContext);
     const {biographyContent}=contentBio;
     const {title,label}=biographyContent;
     const content=biographyContent.content ? biographyContent.content : [];
@@ -144,3 +143,4 @@ export const BioSection = () => {
         </Fade>
     );
 }
+ */

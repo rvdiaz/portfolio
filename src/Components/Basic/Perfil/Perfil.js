@@ -2,11 +2,11 @@ import { Box } from '@mui/system';
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { Queries } from '../../../config/Queries';
-import { ThemeContext } from '../../../Context/ThemeContext';
+import { DataContext } from '../../../Context/DataContext';
 import { Image } from '../Image/Image'
 
 export const Perfil = () => {
-    const {perfilPicture}=useContext(ThemeContext);
+    const {perfilPicture}=useContext(DataContext).theme;
     const {mediaQueries}=Queries();
     const queries=mediaQueries;
 
