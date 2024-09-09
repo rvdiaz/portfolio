@@ -26,12 +26,12 @@ export const DataContextProvider = (props) => {
         label: "Works",
         alt: "Robe Valdes biography",
       },
-      {
+      /* {
         iconUrl:
           "https://rvdiaz-images.s3.amazonaws.com/roberto_valdes_contact_882eef555d.png",
         label: "Contact",
         alt: "Robe Valdes biography",
-      },
+      }, */
     ],
     theme: {
       perfilPicture:
