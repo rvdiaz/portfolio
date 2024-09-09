@@ -39,7 +39,7 @@ export const BioMobileContent = (props) => {
                 fontWeight:'600',
             }}
             >
-                {step.title}
+                {step.place}
             </Typography>   
         </Box>
         <Box

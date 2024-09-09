@@ -4,7 +4,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { ModalImage } from '../ModalImage/ModalImage';
 
 export const WorkCardsImage = (props) => {
-    const {url,alternativeText,label}=props;
+    const {imageUrl,alternativeText,label}=props;
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -28,7 +28,7 @@ export const WorkCardsImage = (props) => {
         >
         <CardMedia
             component='img'
-            image={url}
+            image={imageUrl}
             alt={alternativeText}
             sx={{
                 width:'100%',
@@ -71,7 +71,7 @@ export const WorkCardsImage = (props) => {
         <ModalImage 
             handleClose={handleClose}
             open={open}
-            img={url}
+            img={imageUrl}
         />
     </>
     )

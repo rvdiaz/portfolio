@@ -57,7 +57,7 @@ export const BioDesktopContent = (props) => {
                     fontWeight:'600',
                 }}
                 >
-                    {step.title}
+                    {step.place}
                 </Typography>   
             </Grid>
             <Grid
